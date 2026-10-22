@@ -7,6 +7,9 @@ from content_a import FREEDOM, WATER, FOOD
 from content_b import DAYTRIPS, FAMILY, SPORTS
 from brand import mark_svg, lockup_svg, favicon_uri
 from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
+from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
+# KAYAK hotel search link template, filled in once the KAYAK affiliate program approves us. Empty = no links shown.
+KAYAK_LINK = os.environ.get('KAYAK_LINK', '')
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "docs"
 TRACK = "pid=P00062445&uid=U00628023&mcid=58086&currency=USD"
@@ -51,7 +54,7 @@ def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
 <a class="brand" href="/">{mark_svg(42)}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></a>
-<nav class="links">{links}<a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
+<nav class="links">{links}<a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
 
@@ -61,7 +64,7 @@ def foot():
 <div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></div>
 <p>Family-run since 1965, founded in the heart of Boston's North End. We help visitors and locals find the best of the city, and we plan custom trips anywhere in the world.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
-<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
+<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
 </div>
 <div class="wrap fine">
 <p>Tour bookings are made and fulfilled by Viator, a Tripadvisor company. Boston Travel Agency may earn a commission when you book through links on this site, at no extra cost to you. Prices, ratings and availability shown are approximate and can change; see Viator for current details. Photos from Wikimedia Commons; see <a href="/photo-credits/">photo credits</a>.</p>
@@ -163,12 +166,35 @@ itin = head("Sample Boston Itineraries: 2, 3 and 5 Days | Boston Travel Agency",
     hero("statehouse", "Plan your visit", "Sample Boston itineraries", "".join(f"<p>{p}</p>" for p in ITIN_INTRO), small=True) + f"""
 {anchors}
 <section class="wrap"><nav class="tabs" aria-label="Choose an itinerary">{tabs}</nav></section>
+<section class="wrap"><aside class="before-go"><strong>Before you go: where to stay.</strong> For a 2 or 3-day trip we suggest the Back Bay or the North End and Waterfront, which put most of these plans within walking distance. <a href="/where-to-stay/">See our neighborhood guide &rarr;</a></aside></section>
 <section class="wrap days" id="days"><p class="muted center">Showing the <span id="plan-count">2</span>-day plan. Days build on each other, so a longer trip simply adds days.</p>
 {''.join(day_block(d) for d in DAYS)}</section>
 <section class="band"><div class="wrap"><h2 class="sec">Make it your own</h2><ul class="feature">{seas}</ul>
 <p class="muted small-note">Restaurants are examples we like; hours and menus change, so check before you go. Tour bookings are handled by Viator.</p></div></section>
 """ + itin_js + foot()
 write("sample-itineraries/index.html", itin)
+
+# ---------- where to stay ----------
+def hotel_li(h):
+    tier, name, why = h
+    return f'<li class="hotel t-{tier.lower()}"><span class="tier">{e(tier)}</span><strong>{e(name)}</strong><span class="muted">{e(why)}</span></li>'
+def hood_block(i, h):
+    link = f'<a class="compare" href="{KAYAK_LINK.format(q=h["slug"])}" target="_blank" rel="sponsored noopener">Compare {e(h["name"])} hotels and prices &rarr;</a>' if KAYAK_LINK else ""
+    return f"""<section class="story{' flip' if i % 2 else ''}" id="{h['slug']}"><div class="story-text"><h2>{e(h['name'])}</h2><p>{e(h['summary'])}</p><p class="muted"><strong>Good to know:</strong> {e(h['good'])}</p>
+<ul class="hotels">{''.join(hotel_li(x) for x in h['hotels'])}</ul>{link}</div>{figure(h['img'])}</section>"""
+picker = "".join(f'<li><a href="#{next(h["slug"] for h in HOODS if h["name"]==n)}"><strong>{e(w)}</strong><span>Stay in {e(n)} &rarr;</span></a></li>' for w, n in PICKER)
+tiers = "".join(f'<li class="t-{t.lower()}"><span class="tier">{e(t)}</span><span>{e(d)}</span></li>' for t, d in TIERS)
+stips = "".join(f"<li>{e(t)}</li>" for t in STAY_TIPS)
+stay = head("Where to Stay in Boston: Best Neighborhoods and Hotels | Boston Travel Agency", "Our neighborhood guide to where to stay in Boston, with luxury, classic and value hotel picks in the Back Bay, North End, Beacon Hill, Seaport, Cambridge and Fenway.", "where-to-stay/", "rowes") + nav("where-to-stay") + \
+    hero("rowes", "Plan your visit", "Where to stay in Boston", "".join(f"<p>{p}</p>" for p in STAY_INTRO), small=True) + f"""
+<section class="wrap"><h2 class="sec">Find your neighborhood</h2><ul class="picker">{picker}</ul>
+<h2 class="sec">Three ways to stay</h2><ul class="tiers">{tiers}</ul></section>
+<div class="wrap">{''.join(hood_block(i, h) for i, h in enumerate(HOODS))}</div>
+<section class="wrap"><aside class="tips"><h3>Booking tips</h3><ul>{stips}</ul></aside>
+<a class="itin-callout" href="/sample-itineraries/"><strong>Now plan your days.</strong> See our 2, 3 and 5-day Boston itineraries &rarr;</a>
+<p class="muted small-note">Hotel picks are our suggestions; rates, renovations and availability change, so check current details before you book.</p></section>
+""" + foot()
+write("where-to-stay/index.html", stay)
 
 # ---------- home ----------
 def tile(c):
@@ -252,7 +278,7 @@ write(".nojekyll", "")
 write("logo.svg", lockup_svg())
 write("logo-dark.svg", lockup_svg(dark=True))
 write("logo-mark.svg", mark_svg(512, title=False))
-urls = [""] + ["sample-itineraries/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
+urls = [""] + ["sample-itineraries/", "where-to-stay/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>https://{DOMAIN}/{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n")
 with open("styles.css") as f: write("styles.css", f.read())
