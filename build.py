@@ -110,8 +110,9 @@ def stars(r): return f'<span class="rating" aria-label="Rated {r} out of 5">&#97
 def card(t):
     title, path, blurb, dur, price, rating, reviews = t
     rv = f'<span class="muted">({reviews} reviews)</span>' if reviews != "New" else '<span class="muted">(new)</span>'
+    if rating is None: rv = '<span class="muted">New on Viator</span>'
     return f"""<article class="tour"><h3>{e(title)}</h3><p>{e(blurb)}</p>
-<ul class="meta"><li>{stars(rating)} {rv}</li><li>{e(dur)}</li><li>From about ${price}</li></ul>
+<ul class="meta"><li>{stars(rating) if rating is not None else ""} {rv}</li><li>{e(dur)}</li><li>From about ${price}</li></ul>
 <a class="btn" href="{vlink(path)}" target="_blank" rel="sponsored noopener">Check dates &amp; book</a></article>"""
 
 def write(path, content):
@@ -130,7 +131,13 @@ for c in CATS:
         img = figure(s["img"]) if s.get("img") else ""
         secs += f'<section class="story{" flip" if i % 2 else ""}"><div class="story-text"><h2>{e(s["h"])}</h2>{body}</div>{img}</section>'
     f = c["feature"]
-    feat = "".join(f'<li><strong>{e(a)}</strong><span>{e(b)}</span></li>' for a, b in f["items"])
+    def feat_li(it):
+        if len(it) == 3:  # (name, text, photo key): photo card
+            a, b, k = it; url, cap = use(k)[0], use(k)[5]
+            return f'<li class="dish"><img src="{url}" alt="{e(cap)}" loading="lazy"><div class="dish-body"><strong>{e(a)}</strong><span>{e(b)}</span><small class="cr">{credit(k)}</small></div></li>'
+        a, b = it
+        return f'<li><strong>{e(a)}</strong><span>{e(b)}</span></li>'
+    feat = "".join(feat_li(it) for it in f["items"])
     tips = "".join(f"<li>{e(t)}</li>" for t in c["tips"])
     intro = "".join(f"<p>{p}</p>" for p in c["intro"])
     page = head(f"{c['title']} | Boston Travel Agency", c["intro"][0][:155], c["slug"] + "/", c["hero"]) + nav(c["slug"]) + \

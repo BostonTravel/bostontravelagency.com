@@ -51,6 +51,7 @@ h1,h2,h3,.brand,.sec{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
 .feature li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
 .feature strong{font-family:Fraunces,Georgia,serif;color:var(--navy);font-size:18px}
 .feature span{color:var(--muted);font-size:15px;line-height:1.55}
+.feature li.dish{padding:0;overflow:hidden;gap:0}.feature li.dish img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--line)}.dish-body{padding:14px 18px 16px;display:flex;flex-direction:column;gap:4px}.dish-body small.cr{font-size:12px;color:var(--muted);margin-top:6px}.dish-body small.cr a{color:var(--muted);font-size:12px;font-weight:400;margin:0}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:8px}
 .tour{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column}
 .tour h3{font-size:20px;line-height:1.25;color:var(--navy);margin:0 0 8px}
