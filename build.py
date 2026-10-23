@@ -68,7 +68,7 @@ def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
 <a class="brand" href="/"><img class="logo-vintage" src="/logo.svg" width="88" height="61" alt=""><span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1969 &middot; Bespoke Private Travel</span></span></a>
-<nav class="links"><a href="/about/"{" aria-current=page" if active=="about" else ""}>About Us</a>{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
+<nav class="links">{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/about/"{" aria-current=page" if active=="about" else ""}>About Us</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
 
