@@ -228,10 +228,11 @@ def ev_card(row, compact=False):
     tour = f'<a class="btn" href="{vlink(ev["tour"][1])}" target="_blank" rel="sponsored noopener">{e(ev["tour"][0])}</a>' if ev["tour"] else ""
     cal = f'<a class="ev-act" href="/boston-events/cal/{ev["slug"]}.ics" download>&#128197; Add to calendar</a>' if conf is not None else ""
     tour += f'<span class="ev-acts">{cal}<button class="ev-act share" type="button" data-title="{e(ev["name"])}: {when}" data-path="/boston-events/#{ev["slug"]}">&#8599; Share</button></span>'
+    off = f'<a class="ev-off" href="{e(ev["link"])}" target="_blank" rel="noopener">Official site &rarr;</a>' if ev.get("link") else ""
     return f"""<article class="ev" data-end="{e2.isoformat()}" id="{ev['slug']}">
 <div class="ev-photo" style="background-image:url('{url}')">{chip}</div>
 <div class="ev-body"><h3>{e(ev['name'])}</h3><p class="ev-when"><strong>{when}</strong> {badge}<br><span class="muted">{e(ev['where'])} &middot; {note}</span></p>{paras}
-<div class="ev-links">{tour}<a class="ev-off" href="{e(ev['link'])}" target="_blank" rel="noopener">Official site &rarr;</a></div><p class="ev-credit">{credit(ev['img'])}</p></div></article>"""
+<div class="ev-links">{tour}{off}</div><p class="ev-credit">{credit(ev['img'])}</p></div></article>"""
 share_js = """<script>(function(){function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},2200)}
 document.querySelectorAll('.share').forEach(function(b){b.addEventListener('click',function(){var u=location.origin+b.dataset.path,d={title:b.dataset.title,text:b.dataset.title,url:u};
 if(navigator.share){navigator.share(d).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){toast('Link copied')})}else{prompt('Copy this link',u)}})})})();</script>"""
