@@ -138,12 +138,21 @@ for c in CATS:
         a, b = it
         return f'<li><strong>{e(a)}</strong><span>{e(b)}</span></li>'
     feat = "".join(feat_li(it) for it in f["items"])
+    tro, tstrip = "", ""
+    if c.get("trophies"):
+        T = c["trophies"]; total = sum(len(t["years"]) for t in T["teams"])
+        def tcard(t):
+            chips = "".join(f"<li>{e(y)}</li>" for y in t["years"])
+            return f'<article class="trophy" style="--c1:{t["c1"]};--c2:{t["c2"]}"><header><span class="tro-n">{len(t["years"])}</span><span class="tro-t">{e(t["trophy"])}</span></header><div class="tro-b"><h3>{e(t["name"])}</h3><ul class="tro-y">{chips}</ul><p>{e(t["note"])}</p></div></article>'
+        tro = f'<section class="wrap" id="championships"><h2 class="sec">{e(T["h"])}</h2><p class="tro-intro"><strong>{total} world championships</strong> across four teams. {e(T["intro"])}</p><div class="trophies">{"".join(tcard(t) for t in T["teams"])}</div></section>'
+        tstrip = '<a class="tro-strip" href="#championships">' + "".join(f'<span style="--c1:{t["c1"]}"><b>{len(t["years"])}</b> {e(t["name"].replace("Boston ","").replace("New England ",""))}</span>' for t in T["teams"]) + f'<em>{total} titles &darr;</em></a>'
     tips = "".join(f"<li>{e(t)}</li>" for t in c["tips"])
     intro = "".join(f"<p>{p}</p>" for p in c["intro"])
     page = head(f"{c['title']} | Boston Travel Agency", c["intro"][0][:155], c["slug"] + "/", c["hero"]) + nav(c["slug"]) + \
         hero(c["hero"], e(c["kicker"]), e(c["title"]), intro, '<div class="hero-ctas"><a class="btn big" href="#tours">See our top tours</a></div>', small=True) + f"""
-<div class="wrap">{secs}</div>
+<div class="wrap">{tstrip}{secs}</div>
 <section class="band"><div class="wrap"><h2 class="sec">{e(f['h'])}</h2><ul class="feature">{feat}</ul>{('<p class="feat-note">' + e(f["note"]) + '</p>') if f.get("note") else ""}</div></section>
+{tro}
 <section class="wrap" id="tours"><h2 class="sec">Our top tours</h2>
 <div class="grid">{''.join(card(t) for t in c['tours'])}</div>
 <aside class="tips"><h3>Local tips</h3><ul>{tips}</ul></aside>

@@ -113,6 +113,16 @@ SPORTS = {
    "Today it is a three-day weekend with more than 11,000 athletes and hundreds of thousands of spectators. Bring a blanket and a hot cider, walk the riverbanks between the Boston University boathouse and the Eliot Bridge, and enjoy one of the prettiest fall weekends in New England.",
   ]},
  ],
+ "trophies": {"h": "Every Boston championship", "intro": "Only the big ones: world titles, not division or conference crowns.", "teams": [
+  {"name": "Boston Red Sox", "trophy": "World Series titles", "c1": "#bd3039", "c2": "#0c2340", "years": ["1903", "1912", "1915", "1916", "1918", "2004", "2007", "2013", "2018"],
+   "note": "Five in the first 16 years, then an 86-year wait, then four in 15 seasons."},
+  {"name": "Boston Celtics", "trophy": "NBA titles", "c1": "#007a33", "c2": "#0b3d1f", "years": ["1957", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1968", "1969", "1974", "1976", "1981", "1984", "1986", "2008", "2024"],
+   "note": "The most in NBA history, including eight straight from 1959 to 1966."},
+  {"name": "Boston Bruins", "trophy": "Stanley Cups", "c1": "#111111", "c2": "#5c4a12", "years": ["1929", "1939", "1941", "1970", "1972", "2011"],
+   "note": "Bobby Orr's flying goal won the 1970 Cup. The 2011 title ended a 39-year wait."},
+  {"name": "New England Patriots", "trophy": "Super Bowl titles", "c1": "#c60c30", "c2": "#002244", "years": ["XXXVI · 2002", "XXXVIII · 2004", "XXXIX · 2005", "XLIX · 2015", "LI · 2017", "LIII · 2019"],
+   "note": "All six with Tom Brady and Bill Belichick, tied for the most in NFL history."},
+ ]},
  "feature": {"h": "Boston sports by the numbers", "cols": True, "items": [
   ("1912", "The year Fenway Park opened"), ("37 feet", "Height of the Green Monster"),
   ("18", "Celtics NBA championships, the most in league history"), ("6", "Bruins Stanley Cups"),
