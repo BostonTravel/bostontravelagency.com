@@ -8,6 +8,11 @@ from content_b import DAYTRIPS, FAMILY, SPORTS
 from brand import mark_svg, lockup_svg, favicon_uri
 from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
 from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
+from events import EVENTS_INTRO, upcoming, fmt_range
+import datetime as dt
+# Events are listed from this date forward; BUILD_DATE=YYYY-MM-DD overrides for testing.
+TODAY = dt.date.fromisoformat(os.environ["BUILD_DATE"]) if os.environ.get("BUILD_DATE") else dt.date.today()
+UPCOMING = upcoming(TODAY)
 # KAYAK hotel search link template, filled in once the KAYAK affiliate program approves us. Empty = no links shown.
 KAYAK_LINK = os.environ.get('KAYAK_LINK', '')
 
@@ -54,7 +59,7 @@ def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
 <a class="brand" href="/">{mark_svg(42)}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></a>
-<nav class="links">{links}<a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
+<nav class="links">{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
 
@@ -64,7 +69,7 @@ def foot():
 <div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></div>
 <p>Family-run since 1965, founded in the heart of Boston's North End. We help visitors and locals find the best of the city, and we plan custom trips anywhere in the world.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
-<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
+<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
 </div>
 <div class="wrap fine">
 <p>Tour bookings are made and fulfilled by Viator, a Tripadvisor company. Boston Travel Agency may earn a commission when you book through links on this site, at no extra cost to you. Prices, ratings and availability shown are approximate and can change; see Viator for current details. Photos from Wikimedia Commons; see <a href="/photo-credits/">photo credits</a>.</p>
@@ -196,6 +201,32 @@ stay = head("Where to Stay in Boston: Best Neighborhoods and Hotels | Boston Tra
 """ + foot()
 write("where-to-stay/index.html", stay)
 
+
+# ---------- events ----------
+def ev_when(s, e2, conf, ev):
+    if conf is None: return e(ev["when"]), "Typical timing"
+    if conf: return fmt_range(s, e2), "Confirmed" if ev.get("confirmed") else "Annual date"
+    return "Likely " + fmt_range(s, e2), "Typical timing: " + e(ev["when"])
+def ev_card(row, compact=False):
+    s, e2, conf, ev = row
+    when, note = ev_when(s, e2, conf, ev)
+    badge = '<span class="ev-badge">Dates confirmed</span>' if conf and ev.get("confirmed") else ""
+    tour = f'<a class="ev-tour" href="{vlink(ev["tour"][1])}" target="_blank" rel="sponsored noopener">Pair it with: {e(ev["tour"][0])} &rarr;</a>' if ev["tour"] and not compact else ""
+    off = f'<a class="ev-off" href="{e(ev["link"])}" target="_blank" rel="noopener">Official site</a>' if not compact else ""
+    month = s.strftime("%b")
+    return f"""<article class="ev" data-end="{e2.isoformat()}" id="{ev['slug']}"><div class="ev-date"><span class="m">{month}</span><span class="d">{s.day if conf is not None else "&middot;"}</span></div>
+<div class="ev-body"><h3>{e(ev['name'])}</h3><p class="ev-when"><strong>{when}</strong> {badge}<br><span class="muted">{e(ev['where'])}{"" if compact else " &middot; " + note}</span></p>{"" if compact else "<p>" + e(ev["blurb"]) + "</p>"}<div class="ev-links">{tour}{off}</div></div></article>"""
+hide_past = "<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('.ev[data-end]').forEach(function(x){if(x.dataset.end<t)x.hidden=true});})();</script>"
+ev_page = head("Boston Events Calendar: Marathon, Feasts, Head of the Charles and More | Boston Travel Agency",
+    "The big annual events in Boston and nearby, with upcoming dates: the Boston Marathon, July 4th, the North End feasts, the Head of the Charles, First Night and more.", "boston-events/", "marathon") + nav("boston-events") + \
+    hero("marathon", "Plan around the big days", "Boston events calendar", "".join(f"<p>{p}</p>" for p in EVENTS_INTRO), small=True) + f"""
+<section class="wrap narrow"><div class="ev-list">{''.join(ev_card(r) for r in UPCOMING)}</div>
+<aside class="tips"><h3>Planning tips</h3><ul><li>Hotels sell out and prices jump on Marathon weekend, Head of the Charles weekend and college graduation weekends in May. Book as early as you can.</li><li>For July 4th and First Night, take the T; streets near the Esplanade and the waterfront close to traffic.</li><li>The North End feasts are free. Go hungry and bring cash for the street vendors.</li></ul></aside>
+<p class="muted small-note">Dates marked "likely" follow each event's usual pattern and may change. Always confirm on the official site before you book. Last updated {TODAY.strftime("%B %Y")}.</p>
+<a class="itin-callout" href="/sample-itineraries/"><strong>Coming for an event?</strong> Build the rest of your trip with our 2, 3 and 5-day itineraries &rarr;</a></section>
+""" + hide_past + foot()
+write("boston-events/index.html", ev_page)
+
 # ---------- home ----------
 def tile(c):
     url = IMG[c["tile"]][0]; use(c["tile"])
@@ -216,6 +247,7 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <p class="muted big">Day-by-day plans with the best tours, where to eat and how to pace it, built by locals.</p>
 <div class="plan-cards">{''.join(plan_card(p) for p in PLANS)}</div>
 </div></section>
+<section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-list ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p></section>
 <section class="wrap" id="explore"><h2 class="sec">Find your Boston</h2><div class="tiles">{''.join(tile(c) for c in CATS)}</div></section>
 <section class="band"><div class="wrap">
 <h2 class="sec">Our top picks right now</h2>
@@ -228,7 +260,7 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <div><h3>Book safely with Viator</h3><p>Every tour is booked through Viator, with secure checkout, 24/7 support and free cancellation on most experiences.</p></div>
 <div><h3>Local since 1965</h3><p>We're a family-run, IATA-accredited agency from the North End. These are the tours and places we recommend to our own family and friends.</p></div>
 </section>
-""" + foot()
+""" + hide_past + foot()
 write("index.html", home)
 
 # ---------- contact ----------
@@ -278,8 +310,8 @@ write(".nojekyll", "")
 write("logo.svg", lockup_svg())
 write("logo-dark.svg", lockup_svg(dark=True))
 write("logo-mark.svg", mark_svg(512, title=False))
-urls = [""] + ["sample-itineraries/", "where-to-stay/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
+urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>https://{DOMAIN}/{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n")
 with open("styles.css") as f: write("styles.css", f.read())
-print("built", OUT, "pages:", len(CATS) + 5, "photos:", len(USED))
+print("built", OUT, "pages:", len(CATS) + 6, "photos:", len(USED))
