@@ -150,7 +150,7 @@ for c in CATS:
     tips = "".join(f"<li>{e(t)}</li>" for t in c["tips"])
     intro = "".join(f"<p>{p}</p>" for p in c["intro"])
     page = head(f"{c['title']} | Boston Travel Agency", c["intro"][0][:155], c["slug"] + "/", c["hero"]) + nav(c["slug"]) + \
-        hero(c["hero"], e(c["kicker"]), e(c["title"]), intro, '<div class="hero-ctas"><a class="btn big" href="#tours">See our top tours</a></div>', small=True) + f"""
+        hero(c["hero"], e(c["kicker"]), e(c["title"]), intro, '<div class="hero-ctas"><a class="btn big" href="#tours">See our top tours</a>' + ('<a class="btn ghost light big" href="/what-to-eat-in-boston/">What to eat in Boston</a>' if c["slug"] == "north-end-food-tours" else '') + '</div>', small=True) + f"""
 <div class="wrap">{tstrip}{secs}</div>
 <section class="band"><div class="wrap"><h2 class="sec">{e(f['h'])}</h2><ul class="feature">{feat}</ul>{('<p class="feat-note">' + e(f["note"]) + '</p>') if f.get("note") else ""}</div></section>
 {tro}
