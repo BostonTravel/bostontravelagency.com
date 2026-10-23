@@ -412,7 +412,10 @@ about = head("About Us | Boston Travel Agency", "Founded in 1969 in Boston's Nor
 <figure><img src="../img/bta-second-office-1970s.jpg" width="1061" height="692" loading="lazy" alt="Color photo of the second Boston Travel Agency office, a brick storefront with gold lettering on a North End street"><figcaption><span class="h-yr">New office location built in 1978</span>Our second home, opened right next door.</figcaption></figure>
 </div>
 <p>Nearly six decades later, we're still family-run, and we still plan travel the same personal way: bespoke, private trips around the world, with Italy closest to our hearts. That work is reserved for our longtime clients and the families they refer, so it isn't something we offer through this website.</p>
-<figure class="about-emblem"><img src="/logo.svg" width="300" height="207" loading="lazy" alt="The agency's original logo: a globe with a plane and a ship, reading Boston-Travel, from anywhere to everywhere"><figcaption>Our original logo, and still our motto.</figcaption></figure>
+<div class="about-emblem"><div class="logos">
+<figure><img src="../img/logo-original-bostra.svg" width="300" height="154" loading="lazy" alt="The agency's original logo: the word BosTra across a globe, circled by arrows, reading from anywhere to everywhere"><figcaption>The original logo</figcaption></figure>
+<figure><img src="/logo.svg" width="300" height="207" loading="lazy" alt="The agency's newer, current logo: a globe with a plane and a ship, reading Boston-Travel, from anywhere to everywhere"><figcaption>Our newer, current logo</figcaption></figure>
+</div><p class="logos-note">From anywhere to everywhere: our motto then and now.</p></div>
 <h2 class="sec">Why we made this site</h2>
 <p>Because Boston is where our story began, and we never stopped loving it. This is the city where our family planted its roots, and we've spent a lifetime collecting its best walks, bites, traditions and hidden corners.</p>
 <p>Boston is also one of the easiest and most rewarding cities in the world to explore on your own. It's compact and walkable, there's history on nearly every corner, the neighborhoods each have their own personality, and the food is worth the trip by itself. You don't need a travel agent to have a wonderful time here. You just need a few good tips from people who know it well.</p>
