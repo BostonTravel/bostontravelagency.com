@@ -211,16 +211,22 @@ def ev_card(row, compact=False):
     s, e2, conf, ev = row
     when, note = ev_when(s, e2, conf, ev)
     badge = '<span class="ev-badge">Dates confirmed</span>' if conf and ev.get("confirmed") else ""
-    tour = f'<a class="ev-tour" href="{vlink(ev["tour"][1])}" target="_blank" rel="sponsored noopener">Pair it with: {e(ev["tour"][0])} &rarr;</a>' if ev["tour"] and not compact else ""
-    off = f'<a class="ev-off" href="{e(ev["link"])}" target="_blank" rel="noopener">Official site</a>' if not compact else ""
-    month = s.strftime("%b")
-    return f"""<article class="ev" data-end="{e2.isoformat()}" id="{ev['slug']}"><div class="ev-date"><span class="m">{month}</span><span class="d">{s.day if conf is not None else "&middot;"}</span></div>
-<div class="ev-body"><h3>{e(ev['name'])}</h3><p class="ev-when"><strong>{when}</strong> {badge}<br><span class="muted">{e(ev['where'])}{"" if compact else " &middot; " + note}</span></p>{"" if compact else "<p>" + e(ev["blurb"]) + "</p>"}<div class="ev-links">{tour}{off}</div></div></article>"""
-hide_past = "<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('.ev[data-end]').forEach(function(x){if(x.dataset.end<t)x.hidden=true});})();</script>"
+    url = use(ev["img"])[0]
+    chip = f'<span class="ev-chip"><span class="m">{s.strftime("%b")}</span><span class="d">{s.day if conf is not None else "&middot;"}</span></span>'
+    if compact:
+        return f"""<a class="ev-mini" data-end="{e2.isoformat()}" href="/boston-events/#{ev['slug']}" style="background-image:linear-gradient(180deg,rgba(10,20,40,.05) 25%,rgba(10,20,40,.85)),url('{url}')">{chip}<span class="h">{e(ev['name'])}</span><span class="w">{when}</span></a>"""
+    paras = "".join(f"<p{' class=ev-trip' if p.startswith('Make it part of your trip') else ''}>{e(p)}</p>" for p in ev["story"])
+    paras = paras.replace("Make it part of your trip:", "<strong>Make it part of your trip:</strong>")
+    tour = f'<a class="btn" href="{vlink(ev["tour"][1])}" target="_blank" rel="sponsored noopener">{e(ev["tour"][0])}</a>' if ev["tour"] else ""
+    return f"""<article class="ev" data-end="{e2.isoformat()}" id="{ev['slug']}">
+<div class="ev-photo" style="background-image:url('{url}')">{chip}</div>
+<div class="ev-body"><h3>{e(ev['name'])}</h3><p class="ev-when"><strong>{when}</strong> {badge}<br><span class="muted">{e(ev['where'])} &middot; {note}</span></p>{paras}
+<div class="ev-links">{tour}<a class="ev-off" href="{e(ev['link'])}" target="_blank" rel="noopener">Official site &rarr;</a></div><p class="ev-credit">{credit(ev['img'])}</p></div></article>"""
+hide_past = "<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('[data-end]').forEach(function(x){if(x.dataset.end<t)x.hidden=true});})();</script>"
 ev_page = head("Boston Events Calendar: Marathon, Feasts, Head of the Charles and More | Boston Travel Agency",
     "The big annual events in Boston and nearby, with upcoming dates: the Boston Marathon, July 4th, the North End feasts, the Head of the Charles, First Night and more.", "boston-events/", "marathon") + nav("boston-events") + \
     hero("marathon", "Plan around the big days", "Boston events calendar", "".join(f"<p>{p}</p>" for p in EVENTS_INTRO), small=True) + f"""
-<section class="wrap narrow"><div class="ev-list">{''.join(ev_card(r) for r in UPCOMING)}</div>
+<section class="wrap"><div class="ev-list">{''.join(ev_card(r) for r in UPCOMING)}</div>
 <aside class="tips"><h3>Planning tips</h3><ul><li>Hotels sell out and prices jump on Marathon weekend, Head of the Charles weekend and college graduation weekends in May. Book as early as you can.</li><li>For July 4th and First Night, take the T; streets near the Esplanade and the waterfront close to traffic.</li><li>The North End feasts are free. Go hungry and bring cash for the street vendors.</li></ul></aside>
 <p class="muted small-note">Dates marked "likely" follow each event's usual pattern and may change. Always confirm on the official site before you book. Last updated {TODAY.strftime("%B %Y")}.</p>
 <a class="itin-callout" href="/sample-itineraries/"><strong>Coming for an event?</strong> Build the rest of your trip with our 2, 3 and 5-day itineraries &rarr;</a></section>
@@ -247,7 +253,7 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <p class="muted big">Day-by-day plans with the best tours, where to eat and how to pace it, built by locals.</p>
 <div class="plan-cards">{''.join(plan_card(p) for p in PLANS)}</div>
 </div></section>
-<section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-list ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p></section>
+<section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p></section>
 <section class="wrap" id="explore"><h2 class="sec">Find your Boston</h2><div class="tiles">{''.join(tile(c) for c in CATS)}</div></section>
 <section class="band"><div class="wrap">
 <h2 class="sec">Our top picks right now</h2>
