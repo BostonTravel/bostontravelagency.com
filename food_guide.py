@@ -15,6 +15,14 @@ CLASSICS = [
   ],
   "spots": [("Modern Pastry", "Hanover St., North End", "The locals' pick"), ("Mike's Pastry", "Hanover St., North End", "The famous one, and the photo"), ("Bova's Bakery", "Salem St., North End", "Late-night cannoli")],
   "tour": ("North End Food Tour: Pizza, Pasta and Pastries", "/tours/Boston/North-End-Boston-Food-Tour/d678-91367P3")},
+ {"slug": "galleria-umberto", "name": "Arancini and Pizza at Galleria Umberto", "kicker": "A North End lunch legend", "img": "hanover",
+  "paras": [
+   "You can't go to the North End without stopping at <strong>Galleria Umberto</strong> on Hanover Street. It's a no-frills lunch counter with a line out the door and one of our personal favorites.",
+   "Order an <strong>arancino</strong>, a golden fried rice ball stuffed with meat sauce, peas and cheese, and a few squares of their thick, Sicilian-style pizza. It's simple, cheap and absolutely delicious, the kind of food North Enders grew up on.",
+   "One warning: get there early. Umberto makes a set amount each day, and when it runs out, they close, usually in the early afternoon. Show up at 1:30 and you may find the doors locked.",
+  ],
+  "spots": [("Galleria Umberto", "Hanover St., North End", "Lunch only; closes when sold out")],
+  "tour": ("North End Food Tour with Local Flavors", "/tours/Boston/Small-group-Guided-Walking-Food-Tour-in-Boston/d678-7812P18")},
  {"slug": "lobster-roll", "name": "A Lobster Roll", "kicker": "Hot and buttered, or cold with mayo?", "img": "lobster",
   "paras": [
    "Every New Englander has an opinion here. A Connecticut-style roll is warm lobster meat drenched in butter. A Maine-style roll is cold lobster tossed with a little mayo. Both come in a toasted, buttered split-top bun, and both are worth every penny.",
@@ -57,7 +65,7 @@ CLASSICS = [
    "It was invented at the <strong>Omni Parker House</strong> hotel in the 1850s, and you can still order the original in its restaurant, a block from Boston Common on the Freedom Trail.",
   ],
   "spots": [("Omni Parker House", "School St., downtown", "Where it was invented")], "tour": None},
- {"slug": "pizza", "name": "North End and East Boston Pizza", "kicker": "Old-school pies", "img": "hanover",
+ {"slug": "pizza", "name": "North End and East Boston Pizza", "kicker": "Old-school pies", "img": "oldnorth",
   "paras": [
    "<strong>Regina Pizzeria</strong> on Thacher Street has been making thin, chewy, slightly charred pies in the North End since 1926. Expect a line and a small, loud, wonderful dining room.",
    "<strong>Santarpio's</strong> in East Boston, near the airport, is a local legend for its pizza and grilled sausage and lamb skewers. No frills, just great food.",
@@ -75,7 +83,7 @@ CLASSICS = [
    "And you will notice the <strong>Dunkin'</strong> on every corner. Locals drink iced coffee all year, even in a snowstorm. Order a \"regular\" and you'll get cream and sugar.",
   ],
   "spots": [], "tour": None},
- {"slug": "baked-beans", "name": "Boston Baked Beans (Sort Of)", "kicker": "Why we're called Beantown", "img": "oldnorth",
+ {"slug": "baked-beans", "name": "Boston Baked Beans (Sort Of)", "kicker": "Why we're called Beantown", "img": "skyline",
   "paras": [
    "Here's a local secret: nobody in Boston goes out for baked beans. The dish, navy beans slow-baked for hours with molasses and salt pork, is the reason Boston got the nickname \"Beantown,\" back when the city was a hub of the molasses and rum trade.",
    "You'll find them on a few historic menus and on souvenir shelves, and they're good. Just don't be surprised when the locals look at you funny if you ask where to get the best ones. Grab a box of Boston Baked Beans candy instead.",

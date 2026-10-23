@@ -249,9 +249,10 @@ trend = "".join(f'<li><strong>{e(t["name"])}</strong><span class="where">{e(t["w
 eat = head("What to Eat in Boston: Cannoli, Lobster Rolls, Roast Beef and More | Boston Travel Agency",
     "The foods you have to try in Boston, from North End cannoli and lobster rolls to the North Shore roast beef three-way, plus what's hot in the Seaport right now.", "what-to-eat-in-boston/", "mikes") + nav("what-to-eat") + \
     hero("lobster", "Eat like a local", "What to eat in Boston", "".join(f"<p>{p}</p>" for p in EAT_INTRO), small=True) + f"""
-<section class="wrap"><nav class="eat-jump" aria-label="Jump to">{jump}<a href="#hot-right-now">Hot right now</a></nav>
+<section class="wrap"><nav class="eat-jump" aria-label="Jump to">{jump}<a href="#food-tours">Food tours</a><a href="#hot-right-now">Hot right now</a></nav>
 <h2 class="sec">The Boston classics</h2><div class="ev-list">{''.join(eat_card(c) for c in CLASSICS)}</div></section>
-<section class="band" id="hot-right-now"><div class="wrap"><h2 class="sec">Hot right now</h2><p class="muted big">The places Boston is buzzing about as of {TRENDING_AS_OF}. Restaurants change quickly, so check hours and book ahead.</p><ul class="feature trend">{trend}</ul></div></section>
+<section class="band" id="food-tours"><div class="wrap"><h2 class="sec">Taste it all on a food tour</h2><p class="muted big">The easiest way to try cannoli, pizza, arancini and more in one afternoon, with a local guide and the neighborhood's stories.</p><div class="grid">{''.join(card(t) for t in FOOD['tours'])}</div></div></section>
+<section class="wrap" id="hot-right-now"><div class="wrap"><h2 class="sec">Hot right now</h2><p class="muted big">The places Boston is buzzing about as of {TRENDING_AS_OF}. Restaurants change quickly, so check hours and book ahead.</p><ul class="feature trend">{trend}</ul></section>
 <section class="wrap"><a class="itin-callout" href="/north-end-food-tours/"><strong>Want a guide?</strong> A North End food tour is the easiest way to try cannoli, pizza and more in one afternoon &rarr;</a>
 <p class="muted small-note">Restaurants, hours and menus change. These are places we like; check before you go.</p></section>
 """ + foot()
