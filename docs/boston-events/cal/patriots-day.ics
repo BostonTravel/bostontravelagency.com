@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:patriots-day-2027@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20270419
+DTEND;VALUE=DATE:20270420
+SUMMARY:Patriots' Day Reenactments
+LOCATION:Lexington and Concord\, Boston area
+DESCRIPTION:Before sunrise\, hundreds of people gather on Lexington Green to watch minutemen in tricorn hats face down a column of redcoats\, just as their ancestors did on April 19\, 1775. More: https://bostontravelagency.com/boston-events/#patriots-day
+URL:https://bostontravelagency.com/boston-events/#patriots-day
+END:VEVENT
+END:VCALENDAR

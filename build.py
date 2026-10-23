@@ -5,6 +5,7 @@ import os, html, sys, hashlib
 from images import IMG
 from content_a import FREEDOM, WATER, FOOD
 from content_b import DAYTRIPS, FAMILY, SPORTS
+from og import card as og_card
 from brand import mark_svg, lockup_svg, favicon_uri
 from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
 from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
@@ -38,7 +39,11 @@ def use(k):
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
 
 def head(title, desc, path, og_img=None):
-    og = f'<meta property="og:image" content="{e(IMG[og_img][0])}">' if og_img else ""
+    short = title.split(" | ")[0]
+    t, _, kick = short.partition(": ")
+    slug = (path.strip("/").replace("/", "-") or "home").replace(".html", "")
+    ogp = og_card(OUT, slug, t, kick or "Boston Travel Agency")
+    og = f'<meta property="og:image" content="https://{DOMAIN}/{ogp}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -221,10 +226,15 @@ def ev_card(row, compact=False):
     paras = "".join(f"<p{' class=ev-trip' if p.startswith('Make it part of your trip') else ''}>{e(p)}</p>" for p in ev["story"])
     paras = paras.replace("Make it part of your trip:", "<strong>Make it part of your trip:</strong>")
     tour = f'<a class="btn" href="{vlink(ev["tour"][1])}" target="_blank" rel="sponsored noopener">{e(ev["tour"][0])}</a>' if ev["tour"] else ""
+    cal = f'<a class="ev-act" href="/boston-events/cal/{ev["slug"]}.ics" download>&#128197; Add to calendar</a>' if conf is not None else ""
+    tour += f'<span class="ev-acts">{cal}<button class="ev-act share" type="button" data-title="{e(ev["name"])}: {when}" data-path="/boston-events/#{ev["slug"]}">&#8599; Share</button></span>'
     return f"""<article class="ev" data-end="{e2.isoformat()}" id="{ev['slug']}">
 <div class="ev-photo" style="background-image:url('{url}')">{chip}</div>
 <div class="ev-body"><h3>{e(ev['name'])}</h3><p class="ev-when"><strong>{when}</strong> {badge}<br><span class="muted">{e(ev['where'])} &middot; {note}</span></p>{paras}
 <div class="ev-links">{tour}<a class="ev-off" href="{e(ev['link'])}" target="_blank" rel="noopener">Official site &rarr;</a></div><p class="ev-credit">{credit(ev['img'])}</p></div></article>"""
+share_js = """<script>(function(){function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},2200)}
+document.querySelectorAll('.share').forEach(function(b){b.addEventListener('click',function(){var u=location.origin+b.dataset.path,d={title:b.dataset.title,text:b.dataset.title,url:u};
+if(navigator.share){navigator.share(d).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){toast('Link copied')})}else{prompt('Copy this link',u)}})})})();</script>"""
 hide_past = "<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('[data-end]').forEach(function(x){if(x.dataset.end<t)x.hidden=true});})();</script>"
 ev_page = head("Boston Events Calendar: Marathon, Feasts, Head of the Charles and More | Boston Travel Agency",
     "The big annual events in Boston and nearby, with upcoming dates: the Boston Marathon, July 4th, the North End feasts, the Head of the Charles, First Night and more.", "boston-events/", "marathon") + nav("boston-events") + \
@@ -233,8 +243,18 @@ ev_page = head("Boston Events Calendar: Marathon, Feasts, Head of the Charles an
 <aside class="tips"><h3>Planning tips</h3><ul><li>Hotels sell out and prices jump on Marathon weekend, Head of the Charles weekend and college graduation weekends in May. Book as early as you can.</li><li>For July 4th and First Night, take the T; streets near the Esplanade and the waterfront close to traffic.</li><li>The North End feasts are free. Go hungry and bring cash for the street vendors.</li></ul></aside>
 <p class="muted small-note">Dates marked "likely" follow each event's usual pattern and may change. Always confirm on the official site before you book. Last updated {TODAY.strftime("%B %Y")}.</p>
 <a class="itin-callout" href="/sample-itineraries/"><strong>Coming for an event?</strong> Build the rest of your trip with our 2, 3 and 5-day itineraries &rarr;</a></section>
-""" + hide_past + foot()
+""" + hide_past + share_js + foot()
 write("boston-events/index.html", ev_page)
+def ics(row):
+    s, e2, conf, ev = row
+    nxt = (e2 + dt.timedelta(1)).strftime("%Y%m%d")
+    desc = (ev["story"][0] + " More: https://" + DOMAIN + "/boston-events/#" + ev["slug"]).replace(",", "\\,").replace(";", "\\;")
+    return "\r\n".join(["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Boston Travel Agency//Events//EN", "BEGIN:VEVENT",
+        f"UID:{ev['slug']}-{s.year}@{DOMAIN}", f"DTSTAMP:{TODAY.strftime('%Y%m%d')}T000000Z", f"DTSTART;VALUE=DATE:{s.strftime('%Y%m%d')}", f"DTEND;VALUE=DATE:{nxt}",
+        f"SUMMARY:{ev['name']}" + ("" if conf else " (typical dates, confirm before booking)"), f"LOCATION:{ev['where'].replace(',', chr(92) + ',')}\\, Boston area",
+        f"DESCRIPTION:{desc}", f"URL:https://{DOMAIN}/boston-events/#{ev['slug']}", "END:VEVENT", "END:VCALENDAR", ""])
+for r in UPCOMING:
+    if r[2] is not None: write(f"boston-events/cal/{r[3]['slug']}.ics", ics(r))
 
 
 # ---------- what to eat ----------
@@ -274,17 +294,35 @@ document.getElementById('sh-count').textContent=c+' of '+n;document.getElementBy
 document.getElementById('sh-done').hidden=c<10;}
 bs.forEach(function(b){b.checked=!!d[b.dataset.k];b.addEventListener('change',function(){d[b.dataset.k]=b.checked;try{localStorage.setItem(K,JSON.stringify(d))}catch(x){}up();});});
 document.getElementById('sh-reset').addEventListener('click',function(){d={};try{localStorage.removeItem(K)}catch(x){}bs.forEach(function(b){b.checked=false});up();});up();})();</script>"""
+badge_js = """<script>(function(){var btn=document.getElementById('sh-badge');if(!btn)return;
+function names(sel){return Array.prototype.map.call(document.querySelectorAll(sel),function(i){return i.dataset.n})}
+btn.addEventListener('click',function(){var top=document.querySelectorAll('.sh .got input'),all=document.querySelectorAll('.got input'),t=0,a=0,got=[];
+top.forEach(function(i){if(i.checked){t++;got.push(i.closest('.ev-body').querySelector('h3').textContent)}});all.forEach(function(i){if(i.checked)a++});
+var W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+x.fillStyle='#14284b';x.fillRect(0,0,W,H);x.fillStyle='#b2452f';x.fillRect(0,H-36,W,36);
+x.fillStyle='#b2452f';x.beginPath();x.roundRect?x.roundRect(80,80,120,120,28):x.rect(80,80,120,120);x.fill();
+x.fillStyle='#f6f1e8';x.font='bold 40px Georgia,serif';x.textAlign='center';x.fillText('BTA',140,158);
+x.textAlign='left';x.font='bold 40px Georgia,serif';x.fillText('Boston Travel Agency',230,135);x.fillStyle='#f5c3b3';x.font='600 22px Arial,sans-serif';x.fillText('EST. 1965 \u00b7 BOSTON\u2019S NORTH END',232,175);
+var done=t>=10;x.fillStyle='#f5c3b3';x.font='600 34px Arial,sans-serif';x.fillText(done?'I COMPLETED THE':'I\u2019M ON THE',80,330);
+x.fillStyle='#fff';x.font='bold 96px Georgia,serif';x.fillText('Boston',80,440);x.fillText('Selfie Hunt',80,550);
+x.fillStyle='#b2452f';x.font='bold 150px Georgia,serif';x.fillText(t+'/10',80,720);x.fillStyle='#f6f1e8';x.font='32px Arial,sans-serif';x.fillText('top icons collected'+(a>t?'  +'+(a-t)+' bonus':''),80,775);
+x.font='30px Arial,sans-serif';var y=850;got.slice(0,10).forEach(function(n,i){x.fillStyle='#f5c3b3';x.fillText('\u2713',i<5?80:560,y+(i%5)*58);x.fillStyle='#f6f1e8';x.fillText(n.length>27?n.slice(0,26)+'\u2026':n,(i<5?80:560)+44,y+(i%5)*58)});
+x.fillStyle='#f6f1e8';x.font='bold 34px Arial,sans-serif';x.textAlign='right';x.fillText('bostontravelagency.com/boston-selfie-hunt',W-80,H-80);
+c.toBlob(function(bl){var f=new File([bl],'boston-selfie-hunt.png',{type:'image/png'}),txt=(done?'I completed the Boston Selfie Hunt!':'I\u2019ve collected '+t+' of 10 Boston icons on the Boston Selfie Hunt!')+' '+location.origin+'/boston-selfie-hunt/';
+if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:txt,title:'Boston Selfie Hunt'}).catch(function(){})}
+else{var l=document.createElement('a');l.href=URL.createObjectURL(bl);l.download='boston-selfie-hunt.png';l.click();}},'image/png');});})();</script>"""
 sh = head("The Boston Selfie Hunt: 20 Iconic Photos to Collect | Boston Travel Agency",
     "A free, fun day in Boston: collect the city's 20 most iconic photos, from the Make Way for Ducklings statues to Acorn Street, Faneuil Hall, Fenway and the John Harvard statue.", "boston-selfie-hunt/", "ducklings") + nav("selfie") + \
     hero("acorn", "A free, fun day in Boston", "The Boston Selfie Hunt", "".join(f"<p>{p}</p>" for p in SELFIE_INTRO), small=True) + f"""
 <div class="sh-page"></div><div class="sh-progress" role="status"><div class="wrap"><strong>Your hunt:</strong> <span id="sh-count">0 of {len(TOP)+len(BONUS)}</span> collected<div class="sh-track"><div id="sh-bar"></div></div><button id="sh-reset" class="sh-reset" type="button">Reset</button></div></div>
 <section class="wrap"><h2 class="sec">The top 10, in walking order</h2><p class="muted big">Start in the Public Garden in the morning and finish in Harvard Square by dinner. Comfortable shoes recommended.</p>
 <div class="ev-list">{''.join(selfie_card(i + 1, s) for i, s in enumerate(TOP))}</div>
-<p id="sh-done" class="sh-done" hidden><strong>You collected the top 10!</strong> You've officially seen Boston. Now try the bonus round.</p></section>
+<div class="sh-share"><p id="sh-done" class="sh-done" hidden><strong>You collected the top 10!</strong> You've officially seen Boston. Share your badge, then try the bonus round.</p>
+<button id="sh-badge" class="btn big" type="button">Share my Selfie Hunt badge</button><p class="muted">Creates a picture of your progress to post on Instagram, Facebook or send by text.</p></div></section>
 <section class="band"><div class="wrap"><h2 class="sec">The bonus round</h2><ul class="sh-bonus">{bonus}</ul></div></section>
 <section class="wrap"><a class="itin-callout" href="/sample-itineraries/"><strong>Staying a few days?</strong> Pair the hunt with our 2, 3 and 5-day itineraries &rarr;</a>
 <p class="muted small-note">Your checklist is saved only in this browser on this device. Please be respectful when taking photos on residential streets like Acorn Street.</p></section>
-""" + sh_js + foot()
+""" + sh_js + badge_js + foot()
 write("boston-selfie-hunt/index.html", sh)
 
 # ---------- home ----------

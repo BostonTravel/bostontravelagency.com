@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:st-patricks-2027@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20270314
+DTEND;VALUE=DATE:20270315
+SUMMARY:St. Patrick's Day Parade (typical dates, confirm before booking)
+LOCATION:South Boston\, Boston area
+DESCRIPTION:Bagpipes\, marching bands\, floats and a sea of green fill Broadway in South Boston\, with hundreds of thousands of people cheering along the route. More: https://bostontravelagency.com/boston-events/#st-patricks
+URL:https://bostontravelagency.com/boston-events/#st-patricks
+END:VEVENT
+END:VCALENDAR

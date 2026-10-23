@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:boston-calling-2027@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20270528
+DTEND;VALUE=DATE:20270531
+SUMMARY:Boston Calling Music Festival (typical dates, confirm before booking)
+LOCATION:Harvard Athletic Complex\, Allston\, Boston area
+DESCRIPTION:Three days of headline bands\, local favorites\, food trucks and summer sunshine on the fields just across the river from Harvard Square. More: https://bostontravelagency.com/boston-events/#boston-calling
+URL:https://bostontravelagency.com/boston-events/#boston-calling
+END:VEVENT
+END:VCALENDAR

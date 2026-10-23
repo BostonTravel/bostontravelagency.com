@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:july-4-2027@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20270704
+DTEND;VALUE=DATE:20270705
+SUMMARY:Fourth of July and the Boston Pops Fireworks
+LOCATION:Charles River Esplanade\, Boston area
+DESCRIPTION:Hundreds of thousands of people spread blankets on the Esplanade as the Boston Pops play patriotic favorites at the Hatch Shell\, finishing with the 1812 Overture\, real cannon fire and fireworks bursting over the Charles. More: https://bostontravelagency.com/boston-events/#july-4
+URL:https://bostontravelagency.com/boston-events/#july-4
+END:VEVENT
+END:VCALENDAR

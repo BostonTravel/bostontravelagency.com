@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:tea-party-2026@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20261216
+DTEND;VALUE=DATE:20261217
+SUMMARY:Boston Tea Party Reenactment (typical dates, confirm before booking)
+LOCATION:Old South Meeting House and the waterfront\, Boston area
+DESCRIPTION:Join the crowd at Old South Meeting House as colonists in costume argue over the tax on tea\, then follow the 'Sons of Liberty' to the waterfront and watch the tea go into the harbor. More: https://bostontravelagency.com/boston-events/#tea-party
+URL:https://bostontravelagency.com/boston-events/#tea-party
+END:VEVENT
+END:VCALENDAR

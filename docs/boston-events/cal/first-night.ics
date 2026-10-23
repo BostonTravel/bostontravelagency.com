@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:first-night-2026@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
+SUMMARY:First Night Boston
+LOCATION:City Hall Plaza\, Copley Square and the waterfront\, Boston area
+DESCRIPTION:A parade\, glowing ice sculptures\, live music on stages across the city and two rounds of fireworks\, the last at midnight over Boston Harbor. More: https://bostontravelagency.com/boston-events/#first-night
+URL:https://bostontravelagency.com/boston-events/#first-night
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:sand-sculpting-2027@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20270723
+DTEND;VALUE=DATE:20270726
+SUMMARY:International Sand Sculpting Festival
+LOCATION:Revere Beach\, Boston area
+DESCRIPTION:World-class sand sculptors from around the globe turn America's first public beach into an open-air gallery\, carving castles\, faces and fantastic creatures that seem impossible to make from sand and water alone. More: https://bostontravelagency.com/boston-events/#sand-sculpting
+URL:https://bostontravelagency.com/boston-events/#sand-sculpting
+END:VEVENT
+END:VCALENDAR

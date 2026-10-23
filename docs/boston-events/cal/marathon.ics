@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boston Travel Agency//Events//EN
+BEGIN:VEVENT
+UID:marathon-2027@bostontravelagency.com
+DTSTAMP:20261023T000000Z
+DTSTART;VALUE=DATE:20270419
+DTEND;VALUE=DATE:20270420
+SUMMARY:Boston Marathon
+LOCATION:Hopkinton to Boylston Street\, Boston area
+DESCRIPTION:Half a million people line the 26.2 miles from Hopkinton to Boylston Street\, ringing cowbells\, handing out orange slices and cheering for perfect strangers by name. More: https://bostontravelagency.com/boston-events/#marathon
+URL:https://bostontravelagency.com/boston-events/#marathon
+END:VEVENT
+END:VCALENDAR
