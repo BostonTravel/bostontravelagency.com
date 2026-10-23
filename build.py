@@ -68,7 +68,7 @@ def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
 <a class="brand" href="/">{mark_svg(42)}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></a>
-<nav class="links">{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
+<nav class="links"><a href="/about/"{" aria-current=page" if active=="about" else ""}>About Us</a>{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
 
@@ -401,7 +401,7 @@ contact = head("Contact Us | Boston Travel Agency", "How to get help with a tour
 write("contact/index.html", contact)
 
 # ---------- about ----------
-about = head("About Us | Boston Travel Agency", "Founded in 1965 in Boston's North End by a family from Italy, Boston Travel Agency shares free guides to the city it calls home.", "about/", "hanover") + nav() + \
+about = head("About Us | Boston Travel Agency", "Founded in 1965 in Boston's North End by a family from Italy, Boston Travel Agency shares free guides to the city it calls home.", "about/", "hanover") + nav("about") + \
     hero("hanover", "About us", "Boston at heart.<br>Italy in our blood.", "<p>A family-run travel agency since 1965.</p>", small=True) + f"""
 <section class="wrap narrow prose">
 <h2 class="sec">From the North End to Italy and back</h2>
