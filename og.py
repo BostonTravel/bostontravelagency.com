@@ -20,7 +20,7 @@ def card(out_dir, slug, title, kicker="Boston Travel Agency"):
     d.rectangle([0, 600, 1200, 630], fill=BRICK)
     _mark(d, 70, 64, 104)
     d.text((196, 86), "Boston Travel Agency", font=_f("DejaVuSerif-Bold.ttf", 34), fill=CREAM)
-    d.text((198, 132), "EST. 1965 · BOSTON'S NORTH END", font=_f("DejaVuSans-Bold.ttf", 17), fill=PINK)
+    d.text((198, 132), "EST. 1965 · BESPOKE PRIVATE TRAVEL", font=_f("DejaVuSans-Bold.ttf", 17), fill=PINK)
     size = 76 if len(title) < 26 else 64 if len(title) < 44 else 54
     lines = textwrap.wrap(title, width=int(1500 / size))[:3]
     y = 250

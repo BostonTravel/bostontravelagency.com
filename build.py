@@ -65,7 +65,7 @@ def head(title, desc, path, og_img=None):
 def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
-<a class="brand" href="/">{mark_svg(42)}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></a>
+<a class="brand" href="/">{mark_svg(42)}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></a>
 <nav class="links">{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
@@ -73,8 +73,8 @@ def nav(active=""):
 def foot():
     return f"""<footer class="foot">
 <div class="wrap foot-grid">
-<div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></div>
-<p>Family-run since 1965, founded in the heart of Boston's North End. We help visitors and locals find the best of the city, and we plan custom trips anywhere in the world.</p></div>
+<div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></div>
+<p>Family-run since 1965 and Boston at heart. Today we're a private travel consultancy planning personalized trips around the world, and this site is where we share our favorite tours, tips and happenings in the city we love.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
 <div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/boston-selfie-hunt/">Boston Selfie Hunt</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
 </div>
@@ -175,7 +175,7 @@ function fromHash(){var m=location.hash.match(/plan-(\\d)/);show(m?m[1]:'2');}
 tabs.forEach(function(t){t.addEventListener('click',function(ev){ev.preventDefault();history.replaceState(null,'','#plan-'+t.dataset.plan);show(t.dataset.plan);document.getElementById('days').scrollIntoView({behavior:'smooth'});});});
 window.addEventListener('hashchange',fromHash);fromHash();})();
 </script>"""
-itin = head("Sample Boston Itineraries: 2, 3 and 5 Days | Boston Travel Agency", "Day-by-day sample itineraries for 2, 3 and 5 days in Boston, with the best tours and where to eat, from a North End travel agency est. 1965.", "sample-itineraries/", "statehouse") + nav("") + \
+itin = head("Sample Boston Itineraries: 2, 3 and 5 Days | Boston Travel Agency", "Day-by-day sample itineraries for 2, 3 and 5 days in Boston, with the best tours and where to eat, from a family-run Boston travel agency est. 1965.", "sample-itineraries/", "statehouse") + nav("") + \
     hero("statehouse", "Plan your visit", "Sample Boston itineraries", "".join(f"<p>{p}</p>" for p in ITIN_INTRO), small=True) + f"""
 {anchors}
 <section class="wrap"><nav class="tabs" aria-label="Choose an itinerary">{tabs}</nav></section>
@@ -302,7 +302,7 @@ var W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;var x=
 x.fillStyle='#14284b';x.fillRect(0,0,W,H);x.fillStyle='#b2452f';x.fillRect(0,H-36,W,36);
 x.fillStyle='#b2452f';x.beginPath();x.roundRect?x.roundRect(80,80,120,120,28):x.rect(80,80,120,120);x.fill();
 x.fillStyle='#f6f1e8';x.font='bold 40px Georgia,serif';x.textAlign='center';x.fillText('BTA',140,158);
-x.textAlign='left';x.font='bold 40px Georgia,serif';x.fillText('Boston Travel Agency',230,135);x.fillStyle='#f5c3b3';x.font='600 22px Arial,sans-serif';x.fillText('EST. 1965 \u00b7 BOSTON\u2019S NORTH END',232,175);
+x.textAlign='left';x.font='bold 40px Georgia,serif';x.fillText('Boston Travel Agency',230,135);x.fillStyle='#f5c3b3';x.font='600 22px Arial,sans-serif';x.fillText('EST. 1965 \u00b7 BESPOKE PRIVATE TRAVEL',232,175);
 var done=t>=10;x.fillStyle='#f5c3b3';x.font='600 34px Arial,sans-serif';x.fillText(done?'I COMPLETED THE':'I\u2019M ON THE',80,330);
 x.fillStyle='#fff';x.font='bold 96px Georgia,serif';x.fillText('Boston',80,440);x.fillText('Selfie Hunt',80,550);
 x.fillStyle='#b2452f';x.font='bold 150px Georgia,serif';x.fillText(t+'/10',80,720);x.fillStyle='#f6f1e8';x.font='32px Arial,sans-serif';x.fillText('top icons collected'+(a>t?'  +'+(a-t)+' bonus':''),80,775);
@@ -331,14 +331,14 @@ def tile(c):
     return f"""<a class="tile" href="/{c['slug']}/" style="background-image:linear-gradient(180deg,rgba(10,20,40,.05) 30%,rgba(10,20,40,.85)),url('{url}')"><span class="k">{e(c['kicker'])}</span><span class="h">{e(c['title'])}</span><span class="go">Explore &rarr;</span></a>"""
 picks = [FREEDOM["tours"][0], WATER["tours"][0], FOOD["tours"][0], SPORTS["tours"][0], DAYTRIPS["tours"][0], FAMILY["tours"][1]]
 home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
-            "Hand-picked Boston tours from a family-run North End travel agency, est. 1965: the Freedom Trail, whale watching, food tours, Fenway Park, day trips and more.", "", "hero") + nav() + \
-    hero("hero", "Family-run since 1965 &middot; Boston's North End", "The best of Boston,<br>picked by people who live here.",
+            "Hand-picked Boston tours from a family-run Boston travel agency, est. 1965: the Freedom Trail, whale watching, food tours, Fenway Park, day trips and more.", "", "hero") + nav() + \
+    hero("hero", "Family-run since 1965 &middot; Bespoke private travel", "The best of Boston,<br>picked by people who live here.",
          "<p>We've sorted through hundreds of Boston tours so you don't have to. Every experience here is highly rated, easy to book, and something we'd send our own family on.</p>",
          '<div class="hero-ctas"><a class="btn big" href="#explore">Explore Boston</a><a class="btn ghost light big" href="/sample-itineraries/">See sample itineraries</a></div>') + f"""
 <section class="wrap intro-block">
 <h2 class="sec">Curated, memorable Boston experiences</h2>
 <p>Boston Travel was founded in 1965 in the heart of Boston's North End. What began as a neighborhood agency helping local families discover the world has grown into a deeply rooted, family-run company focused on crafting highly personalized travel experiences. With decades of experience and generations of local insight, our passion for travel is matched only by our love of this incredible city.</p>
-<p>While we now specialize in customized private tours and bespoke travel planning, this website features a curated collection of some of the very best tours available in Boston today. Whether you're visiting for the first time or rediscovering its cobblestone streets, we invite you to explore Boston through the lens of those who know and love it best.</p>
+<p>Today we're a private travel consultancy, planning personalized trips for clients around the world. This site is a labor of love: our favorite tours, tips, events and places to eat in the city we call home, shared so you can come visit, learn, and love Boston as much as we do.</p>
 </section>
 <section class="itin-feature"><div class="wrap">
 <p class="eyebrow dark">Plan your visit</p><h2 class="sec">Sample itineraries for 2, 3 and 5 days</h2>
@@ -358,7 +358,7 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <section class="wrap why">
 <div><h3>Hand-picked, not paid placement</h3><p>We only list tours with strong, consistent reviews. If it isn't something we'd recommend to a friend, it isn't here.</p></div>
 <div><h3>Book safely with Viator</h3><p>Every tour is booked through Viator, with secure checkout, 24/7 support and free cancellation on most experiences.</p></div>
-<div><h3>Local since 1965</h3><p>We're a family-run, IATA-accredited agency from the North End. These are the tours and places we recommend to our own family and friends.</p></div>
+<div><h3>Local since 1965</h3><p>We're a family-run, IATA-accredited agency founded in Boston in 1965. These are the tours and places we recommend to our own family and friends.</p></div>
 </section>
 """ + hide_past + foot()
 write("index.html", home)
@@ -382,11 +382,11 @@ write("contact/index.html", contact)
 
 # ---------- about ----------
 about = head("About Us | Boston Travel Agency", "Boston Travel was founded in 1965 in the heart of Boston's North End and is still family-run today.", "about/", "hanover") + nav() + \
-    hero("hanover", "About us", "Family-run since 1965.", "<p>Founded in the heart of Boston's North End.</p>", small=True) + f"""
+    hero("hanover", "About us", "Family-run since 1965.", "<p>Bespoke private travel, Boston at heart.</p>", small=True) + f"""
 <section class="wrap narrow prose">
 <p>Boston Travel was founded in 1965 in the heart of Boston's North End. What began as a neighborhood agency helping local families discover the world has grown into a deeply rooted, family-run company focused on crafting highly personalized travel experiences.</p>
 <p>With decades of experience and generations of local insight, our passion for travel is matched only by our love of this incredible city. Boston's rich history, cultural legacy and neighborhood charm make it a destination every traveler should experience at least once.</p>
-<p>Today we specialize in customized private tours and bespoke travel planning. This website is our curated collection of some of the very best tours available in Boston, all booked securely through Viator. Planning your visit? Start with our <a href="/sample-itineraries/">sample itineraries</a>.</p>
+<p>Today we're a private travel consultancy, planning personalized trips for clients around the world. This site is a labor of love: our favorite tours, tips, events and places to eat in the city we call home, shared so you can come visit, learn, and love Boston as much as we do. Tours are booked securely through Viator. Planning your visit? Start with our <a href="/sample-itineraries/">sample itineraries</a>.</p>
 </section>
 """ + foot()
 write("about/index.html", about)
