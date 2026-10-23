@@ -23,7 +23,7 @@ def card(out_dir, slug, title, kicker="Boston Travel Agency"):
     lg = _logo(120); img.paste(lg, (64, 50), lg)
     tx = 64 + lg.width + 28
     d.text((tx, 78), "Boston Travel Agency", font=_f("DejaVuSerif-Bold.ttf", 34), fill=CREAM)
-    d.text((tx + 2, 124), "EST. 1965 · BESPOKE PRIVATE TRAVEL", font=_f("DejaVuSans-Bold.ttf", 17), fill=PINK)
+    d.text((tx + 2, 124), "EST. 1969 · BESPOKE PRIVATE TRAVEL", font=_f("DejaVuSans-Bold.ttf", 17), fill=PINK)
     size = 76 if len(title) < 26 else 64 if len(title) < 44 else 54
     lines = textwrap.wrap(title, width=int(1500 / size))[:3]
     y = 250
