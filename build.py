@@ -338,7 +338,7 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <section class="wrap intro-block">
 <h2 class="sec">Curated, memorable Boston experiences</h2>
 <p>Boston Travel was founded in 1965 in the heart of Boston's North End. What began as a neighborhood agency helping local families discover the world has grown into a deeply rooted, family-run company focused on crafting highly personalized travel experiences. With decades of experience and generations of local insight, our passion for travel is matched only by our love of this incredible city.</p>
-<p>Today we're a private travel consultancy, planning personalized trips for clients around the world. This site is a labor of love: our favorite tours, tips, events and places to eat in the city we call home, shared so you can come visit, learn, and love Boston as much as we do.</p>
+<p>Today we're a private travel consultancy, planning personalized trips around the world with a special love for Italy. This site is a labor of love: our favorite tours, tips, events and places to eat in the city we call home, shared so you can come visit, learn, and love Boston as much as we do.</p>
 </section>
 <section class="itin-feature"><div class="wrap">
 <p class="eyebrow dark">Plan your visit</p><h2 class="sec">Sample itineraries for 2, 3 and 5 days</h2>
@@ -369,24 +369,30 @@ if FORM_KEY:
 <input type="hidden" name="access_key" value="{FORM_KEY}"><input type="hidden" name="subject" value="New message from bostontravelagency.com">
 <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
 <label>Name<input name="name" required></label><label>Email<input type="email" name="email" required></label>
-<label>Travel dates (optional)<input name="dates"></label><label>Message<textarea name="message" rows="6" required></textarea></label>
+<label>Message<textarea name="message" rows="6" required></textarea></label>
 <button class="btn big" type="submit">Send message</button></form>"""
 else:
-    form = '<p class="muted">Our contact form is coming soon.</p>'
-contact = head("Contact Us | Boston Travel Agency", "Get in touch with Boston Travel Agency.", "contact/") + nav() + f"""
+    form = ''
+contact = head("Contact Us | Boston Travel Agency", "How to get help with a tour booked through our Boston guides.", "contact/") + nav() + f"""
 <section class="wrap narrow prose"><h1 class="sec">Contact us</h1>
-<p>Have a question about a tour or planning a group trip? Send us a note. For bookings, changes and cancellations on any tour, contact Viator directly through your confirmation email; their support team is available 24/7.</p>
+<p>Our private travel planning is reserved for longtime clients and the families they refer, so we aren't able to take new travel-planning requests through this site.</p>
+<p>Booked a tour from one of our guides? Viator handles every booking, change and cancellation. Contact them through your confirmation email; their support team is available 24/7.</p>
 {form}</section>
 """ + foot()
 write("contact/index.html", contact)
 
 # ---------- about ----------
-about = head("About Us | Boston Travel Agency", "Boston Travel was founded in 1965 in the heart of Boston's North End and is still family-run today.", "about/", "hanover") + nav() + \
-    hero("hanover", "About us", "Family-run since 1965.", "<p>Bespoke private travel, Boston at heart.</p>", small=True) + f"""
+about = head("About Us | Boston Travel Agency", "Founded in 1965 in Boston's North End by a family from Italy, Boston Travel Agency shares free guides to the city it calls home.", "about/", "hanover") + nav() + \
+    hero("hanover", "About us", "Boston at heart.<br>Italy in our blood.", "<p>A family-run travel agency since 1965.</p>", small=True) + f"""
 <section class="wrap narrow prose">
-<p>Boston Travel was founded in 1965 in the heart of Boston's North End. What began as a neighborhood agency helping local families discover the world has grown into a deeply rooted, family-run company focused on crafting highly personalized travel experiences.</p>
-<p>With decades of experience and generations of local insight, our passion for travel is matched only by our love of this incredible city. Boston's rich history, cultural legacy and neighborhood charm make it a destination every traveler should experience at least once.</p>
-<p>Today we're a private travel consultancy, planning personalized trips for clients around the world. This site is a labor of love: our favorite tours, tips, events and places to eat in the city we call home, shared so you can come visit, learn, and love Boston as much as we do. Tours are booked securely through Viator. Planning your visit? Start with our <a href="/sample-itineraries/">sample itineraries</a>.</p>
+<h2 class="sec">From the North End to Italy and back</h2>
+<p>Boston Travel Agency was founded in 1965 in Boston's North End by a family who had made the journey from Italy themselves. In those years the neighborhood was home to thousands of Italian immigrants, and the agency became the place they turned to for travel between their two worlds: trips back to Italy for family celebrations, long-awaited visits to the towns they had left, and relatives making their way to Boston for the first time.</p>
+<p>Six decades later, we're still family-run, and we still plan travel the same personal way: bespoke, private trips around the world, with Italy closest to our hearts. That work is reserved for our longtime clients and the families they refer, so it isn't something we offer through this website.</p>
+<h2 class="sec">Why we made this site</h2>
+<p>Because Boston is where our story began, and we never stopped loving it. This is the city where our family planted its roots, and we've spent a lifetime collecting its best walks, bites, traditions and hidden corners.</p>
+<p>Boston is also one of the easiest and most rewarding cities in the world to explore on your own. It's compact and walkable, there's history on nearly every corner, the neighborhoods each have their own personality, and the food is worth the trip by itself. You don't need a travel agent to have a wonderful time here. You just need a few good tips from people who know it well.</p>
+<p>So consider these guides our gift to anyone who wants to come visit, learn, and love Boston as much as we do. Everything here is free to use. Start with our <a href="/sample-itineraries/">sample itineraries</a>, check the <a href="/boston-events/">events calendar</a>, find out <a href="/what-to-eat-in-boston/">what to eat</a>, or spend a day on the <a href="/boston-selfie-hunt/">Boston Selfie Hunt</a>. When you find a tour you like, you can book it directly and securely through Viator.</p>
+<p class="muted">Benvenuti a Boston. We hope you fall for it the way we did.</p>
 </section>
 """ + foot()
 write("about/index.html", about)
