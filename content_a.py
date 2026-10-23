@@ -8,7 +8,7 @@ FREEDOM = {
  ],
  "sections": [
   {"h": "Why it's special", "img": "statehouse", "paras": [
-   "You can walk the Freedom Trail on your own, but a good guide changes everything. The stops are close together, and the stories are layered: the meeting house where the Tea Party was planned is a few minutes from the balcony where the Declaration of Independence was first read to Bostonians, which is a few steps from the spot where the Boston Massacre began.",
+   "You can walk the Freedom Trail on your own, but [[a good guide|/tours/Boston/Explore-Revolutionary-Boston-Freedom-Trail-History-Tour/d678-66111P3]] changes everything. The stops are close together, and the stories are layered: the meeting house where the Tea Party was planned is a few minutes from the balcony where the Declaration of Independence was first read to Bostonians, which is a few steps from the spot where the Boston Massacre began.",
    "It is also a working city. The trail runs past office towers, pizza shops and people walking their dogs. That mix of old and new is a big part of what makes Boston feel alive rather than preserved behind glass.",
   ]},
   {"h": "The story in seven stops", "img": "revere", "paras": [
@@ -21,7 +21,7 @@ FREEDOM = {
    "<strong>USS Constitution and Bunker Hill.</strong> Across the river in Charlestown, Old Ironsides, launched in 1797, is the oldest commissioned warship still afloat. Up the hill, a 221-foot granite obelisk marks the Battle of Bunker Hill, fought June 17, 1775.",
   ]},
   {"h": "Boston at 250", "img": "faneuil", "paras": [
-   "Boston is in the middle of marking the 250th anniversary of the American Revolution, from the Tea Party and Lexington and Concord through the Declaration of Independence in 1776. Expect special events, reenactments and busier sites, especially around anniversary dates. If you have been meaning to walk the Freedom Trail, there has never been a better time.",
+   "Boston is in the middle of marking the 250th anniversary of the American Revolution, from the Tea Party and Lexington and Concord through the Declaration of Independence in 1776. Expect special events, reenactments and busier sites, especially around anniversary dates. If you have been meaning to [[walk the Freedom Trail|/tours/Boston/Tour-of-The-Freedom-Trail/d678-75734P1]], there has never been a better time.",
   ]},
  ],
  "feature": {"h": "All 16 official Freedom Trail sites", "cols": True, "items": [
@@ -54,16 +54,16 @@ WATER = {
  ],
  "sections": [
   {"h": "Whale watching at Stellwagen Bank", "img": "whale", "paras": [
-   "About 25 miles offshore, at the mouth of Massachusetts Bay, an underwater plateau called Stellwagen Bank pushes cold, nutrient-rich water toward the surface. Small fish gather by the millions, and the whales follow. The area became a National Marine Sanctuary in 1992 and is one of the best places in the world to see whales up close.",
+   "About 25 miles offshore, at the mouth of Massachusetts Bay, an underwater plateau called Stellwagen Bank pushes cold, nutrient-rich water toward the surface. Small fish gather by the millions, and the whales follow. The area became a National Marine Sanctuary in 1992 and is one of the best places in the world to [[see whales up close|/tours/Boston/Boston-Whale-Watching-Cruise/d678-3283BWW]].",
    "Humpbacks are the stars. Many of them return year after year from their winter breeding grounds in the Caribbean, and researchers know individual whales by the patterns on their tails. You may also see finback whales, the second largest animal on Earth, along with minke whales and Atlantic white-sided dolphins. The season generally runs from spring into the fall.",
   ]},
   {"h": "The harbor and its islands", "img": "rowes", "paras": [
    "Boston Harbor is dotted with 34 islands, many of them part of a national and state park. Georges Island is home to Fort Warren, a granite Civil War fort you can explore. Little Brewster Island holds Boston Light, the oldest lighthouse station in the country, first lit in 1716.",
-   "A sightseeing cruise gives you the whole story in an hour or two: the skyline, Old Ironsides, the old wharves and the airport planes gliding in overhead. At sunset, with the city lighting up, it is one of the most romantic hours you can spend in Boston.",
+   "A [[sightseeing cruise|/tours/Boston/Boston-Historic-Sightseeing-Cruise/d678-3283SSCRUISE]] gives you the whole story in an hour or two: the skyline, Old Ironsides, the old wharves and the airport planes gliding in overhead. At [[sunset|/tours/Boston/Northern-Lights-Sunset-Cruise/d678-5985P4]], with the city lighting up, it is one of the most romantic hours you can spend in Boston.",
   ]},
   {"h": "The Charles River and the duck boats", "img": "duck", "paras": [
    "On the other side of the city, the Charles River separates Boston from Cambridge. Its Esplanade is the city's backyard, with sailboats, rowing shells and the Hatch Shell, where the Boston Pops play their famous Fourth of July concert.",
-   "The most famous way onto the Charles is a duck boat. These WWII-style amphibious vehicles have toured the city since 1994, rolling past the landmarks before driving straight into the river. They are also how Boston celebrates its championships: the city's teams ride them through the streets in their victory parades.",
+   "The most famous way onto the Charles is a [[duck boat|/tours/Boston/Boston-Duck-Boat-Sightseeing-City-Tour-with-Cruise/d678-3037DUCK]]. These WWII-style amphibious vehicles have toured the city since 1994, rolling past the landmarks before driving straight into the river. They are also how Boston celebrates its championships: the city's teams ride them through the streets in their victory parades.",
   ]},
  ],
  "feature": {"h": "What you might see on the water", "cols": True, "items": [
@@ -93,10 +93,10 @@ FOOD = {
  "sections": [
   {"h": "The North End: Boston's Little Italy", "img": "hanover", "paras": [
    "The North End is Boston's oldest neighborhood. Paul Revere lived here, but by the early 1900s it was home to tens of thousands of Italian immigrants, and their families' bakeries, cafes, salumerias and red-sauce restaurants still line Hanover and Salem Streets.",
-   "Each summer the neighborhood throws a series of religious feasts, the biggest being the Saint Anthony's Feast in late August, held since 1919, with processions, music and food stands filling the streets. Any time of year, the best way to taste the North End is on foot, one small plate at a time.",
+   "Each summer the neighborhood throws a series of religious feasts, the biggest being the Saint Anthony's Feast in late August, held since 1919, with processions, music and food stands filling the streets. Any time of year, the best way to [[taste the North End|/tours/Boston/North-End-Boston-Food-Tour/d678-91367P3]] is on foot, one small plate at a time.",
   ]},
   {"h": "The great cannoli debate", "img": "modern", "paras": [
-   "Ask ten Bostonians where to get a cannoli and you will start an argument. Mike's Pastry, with its famous white boxes tied with string, draws the longest lines. Modern Pastry, across the street, has a fiercely loyal following that swears by its shells filled to order. Many locals will quietly point you to Bova's, open around the clock. A food tour lets you try more than one and pick your own side.",
+   "Ask ten Bostonians where to get a cannoli and you will start an argument. Mike's Pastry, with its famous white boxes tied with string, draws the longest lines. Modern Pastry, across the street, has a fiercely loyal following that swears by its shells filled to order. Many locals will quietly point you to Bova's, open around the clock. A [[food tour|/tours/Boston/North-End-Small-Group-Food-Tour/d678-5713P109]] lets you try more than one and pick your own side.",
   ]},
   {"h": "Beyond the North End", "img": "backbay", "paras": [
    "<strong>Back Bay.</strong> Built on filled land in the 1800s, the Back Bay is all Victorian brownstones and tree-lined streets. Newbury Street is the place for sidewalk patios, cafes and people watching, and Boylston Street has some of the city's best-known restaurants.",

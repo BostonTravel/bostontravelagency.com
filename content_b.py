@@ -9,20 +9,20 @@ DAYTRIPS = {
  "sections": [
   {"h": "Salem: witches, sea captains and October like nowhere else", "img": "salem", "paras": [
    "In 1692, a wave of panic swept through Salem Village and the surrounding towns. Before it ended, 20 people had been executed for witchcraft. The Salem Witch Trials Memorial and the city's museums tell that story with care.",
-   "Salem is also one of America's great old seaports. Its captains sailed to China and the East Indies, and their treasures became the Peabody Essex Museum, one of the oldest continuously operating museums in the country. Nathaniel Hawthorne was born here, and the House of the Seven Gables, built in 1668, inspired his famous novel. In October the whole city celebrates Haunted Happenings, a month of Halloween festivities. The ferry from Boston takes about 50 minutes and runs seasonally.",
+   "Salem is also one of America's great old seaports. Its captains sailed to China and the East Indies, and their treasures became the Peabody Essex Museum, one of the oldest continuously operating museums in the country. Nathaniel Hawthorne was born here, and the House of the Seven Gables, built in 1668, inspired his famous novel. In October the whole city celebrates Haunted Happenings, a month of Halloween festivities. The [[ferry from Boston|/tours/Boston/Salem-High-Speed-Ferry/d678-3283SALEM]] takes about 50 minutes and runs seasonally.",
   ]},
   {"h": "Lexington and Concord: where the Revolution began", "img": "concord", "paras": [
    "On April 19, 1775, British troops marched out of Boston to seize colonial weapons in Concord. Militia met them on Lexington Green at dawn, and a few hours later, at Concord's Old North Bridge, the colonists fired what Ralph Waldo Emerson called the shot heard round the world. Minute Man National Historical Park preserves the Battle Road between the two towns.",
    "Concord is also America's literary hometown. Emerson, Henry David Thoreau, Louisa May Alcott and Nathaniel Hawthorne all lived here. You can visit Alcott's Orchard House, where she wrote Little Women, and walk around Walden Pond.",
   ]},
   {"h": "Plymouth: America's hometown", "img": "plymouth", "paras": [
-   "About 40 miles south of Boston, Plymouth is where the Pilgrims landed in 1620. Mayflower II, a full-size replica of their ship, is docked on the waterfront, and Plimoth Patuxet Museums bring to life both the English colony and the Wampanoag homesite. Plymouth Rock is a short walk away. It is a great day for families and history lovers.",
+   "About 40 miles south of Boston, Plymouth is where the Pilgrims landed in 1620. Mayflower II, a full-size replica of their ship, is docked on the waterfront, and Plimoth Patuxet Museums bring to life both the English colony and the Wampanoag homesite. Plymouth Rock is a short walk away. It is a [[great day trip|/tours/Boston/Full-Day-Plymouth-and-Cape-Cod-Tour-from-Boston/d678-5491P4]] for families and history lovers.",
   ]},
   {"h": "Cape Cod, the Islands and the coast", "img": "vineyard", "paras": [
-   "<strong>Martha's Vineyard.</strong> Take the ferry for a day of gingerbread cottages in Oak Bluffs, whaling captains' houses in Edgartown and some of the prettiest beaches in New England.",
-   "<strong>Cape Ann.</strong> Gloucester, America's oldest seaport, and the art colony of Rockport are about an hour north. Add Hammond Castle, a medieval-style castle built on the cliffs in the 1920s.",
+   "<strong>Martha's Vineyard.</strong> [[Take the ferry for a day|/tours/Boston/Day-Trip-to-Marthas-Vineyard/d678-5491MARTHA]] of gingerbread cottages in Oak Bluffs, whaling captains' houses in Edgartown and some of the prettiest beaches in New England.",
+   "<strong>Cape Ann.</strong> Gloucester, America's oldest seaport, and the art colony of Rockport are about an hour north. Add [[Hammond Castle|/tours/Boston/Private-Day-Trip-to-Salem-and-Hammond-Castle-from-Boston/d678-400049P15]], a medieval-style castle built on the cliffs in the 1920s.",
    "<strong>Newport, Rhode Island.</strong> About 90 minutes south, the Gilded Age mansions of the Vanderbilts and their friends line the ocean along the Cliff Walk.",
-   "<strong>Fall foliage.</strong> From late September to mid-October, the White Mountains of New Hampshire and the hills of Vermont and western Massachusetts put on one of the world's great color shows.",
+   "<strong>Fall foliage.</strong> From late September to mid-October, the [[White Mountains of New Hampshire|/tours/Boston/Fall-foliage-tour-in-New-Hampshire/d678-66192P4]] and the hills of Vermont and western Massachusetts put on one of the world's great color shows.",
   ]},
  ],
  "feature": {"h": "Quick guide: how far is it?", "cols": True, "items": [
@@ -54,14 +54,14 @@ FAMILY = {
    "Near the entrance you will find a mother duck and her eight ducklings in bronze, from Robert McCloskey's 1941 children's book Make Way for Ducklings, which is set right here. Kids climb all over them, and on holidays the ducks are often dressed for the occasion. In winter, the Frog Pond on the Common becomes an outdoor skating rink.",
   ]},
   {"h": "Museums and attractions kids love", "img": "harvard", "paras": [
-   "<strong>New England Aquarium.</strong> A giant four-story ocean tank, penguins, sea turtles and harbor seals on the waterfront.",
-   "<strong>Boston Tea Party Ships & Museum.</strong> Kids can join a colonial town meeting, board a replica ship and throw tea into the harbor themselves.",
+   "<strong>[[New England Aquarium|/tours/Boston/New-England-Aquarium/d678-3162AQU]].</strong> A giant four-story ocean tank, penguins, sea turtles and harbor seals on the waterfront.",
+   "<strong>[[Boston Tea Party Ships & Museum|/tours/Boston/Admission-to-Boston-Tea-Party-Ships-and-Museum/d678-5650TEA]].</strong> Kids can join a colonial town meeting, board a replica ship and throw tea into the harbor themselves.",
    "<strong>Museum of Science.</strong> Hands-on exhibits, lightning shows and a planetarium, right on the Charles River.",
    "<strong>Boston Children's Museum.</strong> Look for the giant Hood milk bottle out front.",
-   "<strong>Harvard and MIT.</strong> Founded in 1636, Harvard is the oldest university in the country. Older kids love touring Harvard Yard, and the nearby MIT campus is full of science and quirky art.",
+   "<strong>Harvard and MIT.</strong> Founded in 1636, Harvard is the oldest university in the country. Older kids love [[touring Harvard Yard|/tours/Boston/Harvard-Campus-Walking-Tour/d678-5950P2]], and the nearby MIT campus is full of science and quirky art.",
   ]},
   {"h": "Boston after dark", "img": "acorn", "paras": [
-   "As the sun goes down, the city changes. A sunset cruise lights up the skyline. Ghost tours lead you by lantern through old burying grounds and the darker corners of colonial history. Symphony Hall, home of the Boston Symphony Orchestra and the Boston Pops, is considered one of the finest concert halls in the world, and the Theatre District hosts touring Broadway shows.",
+   "As the sun goes down, the city changes. A [[sunset cruise|/tours/Boston/Northern-Lights-Sunset-Cruise/d678-5985P4]] lights up the skyline. [[Ghost tours|/tours/Boston/Boston-Ghosts-and-Gravestones-Tour/d678-5046BOS_GG]] lead you by lantern through old burying grounds and the darker corners of colonial history. Symphony Hall, home of the Boston Symphony Orchestra and the Boston Pops, is considered one of the finest concert halls in the world, and the Theatre District hosts touring Broadway shows.",
    "For a quieter evening, walk the gas-lit streets of Beacon Hill. Acorn Street, a tiny cobblestone lane, may be the most photographed street in the city.",
   ]},
  ],
@@ -91,10 +91,10 @@ SPORTS = {
  "sections": [
   {"h": "Fenway Park: America's most beloved ballpark", "img": "fenway", "paras": [
    "Fenway Park opened on April 20, 1912, just days after the Titanic sank, and it is the oldest ballpark in Major League Baseball. Its quirks are legendary. The Green Monster, the 37-foot wall in left field, has turned routine fly balls into doubles for more than a century. Out in the right field bleachers, a single red seat marks where Ted Williams hit the longest home run in park history in 1946.",
-   "For 86 years, Red Sox fans blamed the Curse of the Bambino, dating to the sale of Babe Ruth to the Yankees, for their long title drought. It finally ended in 2004, and the Sox won again in 2007, 2013 and 2018. A guided tour takes you onto the field level, into the press box and up on top of the Monster.",
+   "For 86 years, Red Sox fans blamed the Curse of the Bambino, dating to the sale of Babe Ruth to the Yankees, for their long title drought. It finally ended in 2004, and the Sox won again in 2007, 2013 and 2018. A [[guided tour|/tours/Boston/Tour-of-Historic-Fenway-Park-Americas-Most-Beloved-Ballpark/d678-43406P1]] takes you onto the field level, into the press box and up on top of the Monster.",
   ]},
   {"h": "The Garden: Celtics and Bruins", "img": "tdgarden", "paras": [
-   "TD Garden, above North Station, is home to two of the most storied franchises in sports. The Celtics have won 18 NBA championships, more than any other team, including the 2024 title. Bill Russell alone won 11 of them as a player. The Bruins, one of hockey's Original Six, have lifted the Stanley Cup six times. The Sports Museum inside the Garden is a must for fans.",
+   "TD Garden, above North Station, is home to two of the most storied franchises in sports. The [[Celtics|/tours/Boston/Boston-Celtics-Basketball-Game-at-TD-Garden/d678-5576124P94]] have won 18 NBA championships, more than any other team, including the 2024 title. Bill Russell alone won 11 of them as a player. The [[Bruins|/tours/Boston/Boston-Bruins-Ice-Hockey-Game-at-TD-Garden/d678-5576124P109]], one of hockey's Original Six, have lifted the Stanley Cup six times. The Sports Museum inside the Garden is a must for fans.",
   ]},
   {"h": "Marathon Monday and the Head of the Charles", "img": "marathon", "paras": [
    "First run in 1897, the Boston Marathon is the world's oldest annual marathon. It is held every Patriots' Day, the third Monday in April, running 26.2 miles from Hopkinton, past the screaming students of Wellesley and over Heartbreak Hill in Newton, to the finish line on Boylston Street. Spectating is free and the whole city turns out.",

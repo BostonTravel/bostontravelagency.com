@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the Boston Travel Agency static site into ./docs
 Content lives in content_a.py / content_b.py, photos in images.py."""
-import os, html, sys, hashlib
+import os, html, sys, hashlib, re
 from images import IMG
 from content_a import FREEDOM, WATER, FOOD
 from content_b import DAYTRIPS, FAMILY, SPORTS
@@ -31,6 +31,8 @@ CSSV = hashlib.md5(open("styles.css","rb").read()).hexdigest()[:8]
 def vlink(path): return f"https://www.viator.com{path}?{TRACK}"
 BOSTON_ALL = vlink("/Boston/d678-ttd")
 def e(s): return html.escape(s, quote=True)
+# Inline tour link in body text: [[link text|/tours/...]] -> discreet Viator link
+def tl(p): return re.sub(r"\[\[(.+?)\|(/tours/[^\]]+)\]\]", lambda m: f'<a class="tl" href="{vlink(m.group(2))}" target="_blank" rel="sponsored noopener">{m.group(1)}</a>', p)
 USED = []
 def use(k):
     if k not in USED: USED.append(k)
@@ -124,7 +126,7 @@ def write(path, content):
 for c in CATS:
     secs = ""
     for i, s in enumerate(c["sections"]):
-        body = "".join(f"<p>{p}</p>" for p in s["paras"])
+        body = "".join(f"<p>{tl(p)}</p>" for p in s["paras"])
         img = figure(s["img"]) if s.get("img") else ""
         secs += f'<section class="story{" flip" if i % 2 else ""}"><div class="story-text"><h2>{e(s["h"])}</h2>{body}</div>{img}</section>'
     f = c["feature"]
