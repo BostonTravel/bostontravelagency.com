@@ -18,3 +18,9 @@ def lockup_svg(dark=False):
 def favicon_uri():
     import urllib.parse
     return "data:image/svg+xml," + urllib.parse.quote(mark_svg(64, title=False))
+
+# ---------- the agency's original globe logo (used site-wide) ----------
+from brand_logo import VIEWBOX, PATH
+def vintage_svg(color="#14284b"):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{VIEWBOX}" role="img" aria-label="Boston Travel Agency">'
+            f'<title>Boston Travel Agency</title><path fill="{color}" fill-rule="evenodd" d="{PATH}"/></svg>')

@@ -206,3 +206,7 @@ h1,h2,h3,.brand,.sec{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
 .heritage figcaption{font-family:Fraunces,Georgia,serif;font-style:italic;font-size:15px;line-height:1.45;color:var(--muted);margin-top:10px}
 .heritage .h-yr{display:block;font-family:Inter,system-ui,sans-serif;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brick);margin-bottom:3px}
 @media (max-width:640px){.heritage{grid-template-columns:1fr;gap:26px}.heritage figure:first-child,.heritage figure:last-child{transform:none}}
+/* the agency's original globe logo */
+.logo-vintage{display:block;flex:none;height:60px;width:auto}
+.foot .logo-vintage{height:70px}
+@media(max-width:760px){.logo-vintage{height:50px}}

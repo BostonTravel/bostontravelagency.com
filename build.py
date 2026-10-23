@@ -6,7 +6,7 @@ from images import IMG
 from content_a import FREEDOM, WATER, FOOD
 from content_b import DAYTRIPS, FAMILY, SPORTS
 from og import card as og_card
-from brand import mark_svg, lockup_svg, favicon_uri
+from brand import mark_svg, lockup_svg, favicon_uri, vintage_svg
 from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
 from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
 from events import EVENTS_INTRO, upcoming, fmt_range
@@ -57,7 +57,7 @@ def head(title, desc, path, og_img=None):
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">{og}
-<link rel="icon" href="{favicon_uri()}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 {FONTS}
 <link rel="stylesheet" href="/styles.css?v={CSSV}">
 </head>
@@ -67,7 +67,7 @@ def head(title, desc, path, og_img=None):
 def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
-<a class="brand" href="/">{mark_svg(42)}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></a>
+<a class="brand" href="/"><img class="logo-vintage" src="/logo.svg" width="88" height="61" alt=""><span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></a>
 <nav class="links"><a href="/about/"{" aria-current=page" if active=="about" else ""}>About Us</a>{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
@@ -75,7 +75,7 @@ def nav(active=""):
 def foot():
     return f"""<footer class="foot">
 <div class="wrap foot-grid">
-<div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></div>
+<div><div class="brand light"><img class="logo-vintage" src="/logo-dark.svg" width="88" height="61" alt=""><span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; Bespoke Private Travel</span></span></div>
 <p>Family-run since 1965 and Boston at heart. Today we're a private travel consultancy planning personalized trips around the world, and this site is where we share our favorite tours, tips and happenings in the city we love.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
 <div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/boston-selfie-hunt/">Boston Selfie Hunt</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
@@ -118,7 +118,7 @@ def card(t):
 def write(path, content):
     if path.endswith(".html"):
         prefix = "../" * path.count("/")
-        content = content.replace('href="/"', 'href="%s"' % (prefix or "./")).replace('href="/', 'href="%s' % prefix)
+        content = content.replace('href="/"', 'href="%s"' % (prefix or "./")).replace('href="/', 'href="%s' % prefix).replace('src="/', 'src="%s' % prefix)
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full) or OUT, exist_ok=True)
     with open(full, "w") as f: f.write(content)
@@ -436,14 +436,15 @@ write("404.html", head("Page not found | Boston Travel Agency", "Page not found"
 if os.environ.get("CUSTOM_DOMAIN") == "1":
     write("CNAME", DOMAIN + "\n")
 write(".nojekyll", "")
-write("logo.svg", lockup_svg())
+write("logo.svg", vintage_svg("#14284b"))
+write("favicon.svg", vintage_svg("#14284b"))
 # our own historic photos (photos/ -> docs/img/)
 import shutil
 os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
 for fn in sorted(os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos"))):
     shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos", fn), os.path.join(OUT, "img", fn))
-write("logo-dark.svg", lockup_svg(dark=True))
-write("logo-mark.svg", mark_svg(512, title=False))
+write("logo-dark.svg", vintage_svg("#f6f1e8"))
+write("logo-mark.svg", vintage_svg("#14284b"))
 urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/", "boston-selfie-hunt/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>https://{DOMAIN}/{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n")

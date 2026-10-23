@@ -5,22 +5,25 @@ NAVY, BRICK, CREAM, PINK = (20, 40, 75), (178, 69, 47), (246, 241, 232), (245, 1
 F = "/usr/share/fonts/truetype/dejavu/"
 def _f(name, size): return ImageFont.truetype(F + name, size)
 
-def _mark(d, x, y, s):
-    k = s / 112
-    P = lambda a, b: (x + a * k, y + b * k)
-    d.rounded_rectangle([P(0, 0), P(112, 112)], radius=24 * k, fill=BRICK)
-    d.polygon([P(56, 6), P(60.5, 30), P(51.5, 30)], fill=CREAM)
-    d.rectangle([P(50, 30), P(62, 39)], fill=CREAM); d.rectangle([P(47.5, 39), P(64.5, 49)], fill=CREAM)
-    f = _f("DejaVuSerif-Bold.ttf", int(30 * k)); d.text(P(56, 70), "BTA", font=f, fill=CREAM, anchor="mm")
-    pts = [P(22 + i, 95 + 3.5 * __import__("math").sin(i / 17 * 6.283)) for i in range(0, 69)]
-    d.line(pts, fill=CREAM, width=max(2, int(4 * k)))
+_LOGO = None
+def _logo(h):
+    # the agency's original globe logo, tinted cream for the navy card
+    global _LOGO
+    if _LOGO is None:
+        src = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "brand", "logo-vintage-black.png")).convert("L")
+        alpha = src.point(lambda v: 255 - v)
+        alpha = alpha.crop(alpha.getbbox())
+        _LOGO = Image.new("RGBA", alpha.size, CREAM + (255,)); _LOGO.putalpha(alpha)
+    w = round(_LOGO.width * h / _LOGO.height)
+    return _LOGO.resize((w, h), Image.LANCZOS)
 
 def card(out_dir, slug, title, kicker="Boston Travel Agency"):
     img = Image.new("RGB", (1200, 630), NAVY); d = ImageDraw.Draw(img)
     d.rectangle([0, 600, 1200, 630], fill=BRICK)
-    _mark(d, 70, 64, 104)
-    d.text((196, 86), "Boston Travel Agency", font=_f("DejaVuSerif-Bold.ttf", 34), fill=CREAM)
-    d.text((198, 132), "EST. 1965 · BESPOKE PRIVATE TRAVEL", font=_f("DejaVuSans-Bold.ttf", 17), fill=PINK)
+    lg = _logo(120); img.paste(lg, (64, 50), lg)
+    tx = 64 + lg.width + 28
+    d.text((tx, 78), "Boston Travel Agency", font=_f("DejaVuSerif-Bold.ttf", 34), fill=CREAM)
+    d.text((tx + 2, 124), "EST. 1965 · BESPOKE PRIVATE TRAVEL", font=_f("DejaVuSans-Bold.ttf", 17), fill=PINK)
     size = 76 if len(title) < 26 else 64 if len(title) < 44 else 54
     lines = textwrap.wrap(title, width=int(1500 / size))[:3]
     y = 250
