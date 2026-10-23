@@ -159,3 +159,17 @@ h1,h2,h3,.brand,.sec{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
 .eat-spots{list-style:none;padding:12px 14px;margin:4px 0 14px;background:var(--cream);border-radius:10px;font-size:15px;display:flex;flex-direction:column;gap:6px}
 .trend .where{font-size:13px!important;color:var(--brick)!important;font-weight:600}
 .ev-body .eyebrow{margin:0 0 6px}
+/* selfie hunt */
+.sh-progress{position:fixed;bottom:0;left:0;right:0;z-index:6;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--navy);color:#fff;padding:12px 0;font-size:15px}
+.sh-progress .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sh-track{flex:1;min-width:120px;height:10px;background:rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
+#sh-bar{height:100%;width:0;background:var(--brick);transition:width .3s}
+.sh-reset{background:none;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:16px;padding:3px 12px;font-size:13px;cursor:pointer}
+.got{display:inline-flex;align-items:flex-start;gap:10px;cursor:pointer;background:var(--cream);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:4px 0 14px;font-weight:600}
+.got input{width:22px;height:22px;accent-color:var(--brick);margin:0;flex:none}
+.got.on{border-color:var(--brick);background:#fbe9e3}
+.sh-bonus{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.sh-bonus .got{display:flex;width:100%;margin:0;background:#fff;font-weight:400}
+.sh-done{background:var(--brick);color:#fff;border-radius:12px;padding:16px 20px;text-align:center;font-size:18px;margin-top:30px}
+.sh-page .foot{padding-bottom:70px}
+.foot:has(~ *),body:has(.sh-progress) .foot{padding-bottom:70px}

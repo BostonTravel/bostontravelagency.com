@@ -9,6 +9,7 @@ from brand import mark_svg, lockup_svg, favicon_uri
 from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
 from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
 from events import EVENTS_INTRO, upcoming, fmt_range
+from selfies import SELFIE_INTRO, TOP, BONUS
 from food_guide import EAT_INTRO, CLASSICS, TRENDING, TRENDING_AS_OF
 import datetime as dt
 # Events are listed from this date forward; BUILD_DATE=YYYY-MM-DD overrides for testing.
@@ -70,7 +71,7 @@ def foot():
 <div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></div>
 <p>Family-run since 1965, founded in the heart of Boston's North End. We help visitors and locals find the best of the city, and we plan custom trips anywhere in the world.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
-<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
+<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/boston-selfie-hunt/">Boston Selfie Hunt</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
 </div>
 <div class="wrap fine">
 <p>Tour bookings are made and fulfilled by Viator, a Tripadvisor company. Boston Travel Agency may earn a commission when you book through links on this site, at no extra cost to you. Prices, ratings and availability shown are approximate and can change; see Viator for current details. Photos from Wikimedia Commons; see <a href="/photo-credits/">photo credits</a>.</p>
@@ -258,6 +259,34 @@ eat = head("What to Eat in Boston: Cannoli, Lobster Rolls, Roast Beef and More |
 """ + foot()
 write("what-to-eat-in-boston/index.html", eat)
 
+
+# ---------- selfie hunt ----------
+def selfie_card(i, s):
+    url = use(s["img"])[0]
+    tour = f'<div class="ev-links"><a class="btn ghost" href="{vlink(s["tour"][1])}" target="_blank" rel="sponsored noopener">Make it a tour: {e(s["tour"][0])}</a></div>' if s["tour"] else ""
+    return f"""<article class="ev sh" id="{s['slug']}"><div class="ev-photo" style="background-image:url('{url}')"><span class="ev-chip"><span class="m">Stop</span><span class="d">{i}</span></span></div>
+<div class="ev-body"><h3>{e(s['name'])}</h3><p class="muted">{e(s['where'])}</p><p>{s['tip']}</p>
+<label class="got"><input type="checkbox" data-k="{s['slug']}"> <span>Got it!</span></label>{tour}<p class="ev-credit">{credit(s['img'])}</p></div></article>"""
+bonus = "".join(f'<li><label class="got"><input type="checkbox" data-k="{k}"> <span><strong>{e(n)}</strong><br><span class="muted">{e(w)}</span></span></label></li>' for k, n, w in BONUS)
+sh_js = """<script>(function(){var K='bta-selfie-hunt',d={};try{d=JSON.parse(localStorage.getItem(K)||'{}')}catch(x){}
+var bs=document.querySelectorAll('.got input'),n=bs.length;function up(){var c=0;bs.forEach(function(b){if(b.checked)c++;b.closest('.got').classList.toggle('on',b.checked)});
+document.getElementById('sh-count').textContent=c+' of '+n;document.getElementById('sh-bar').style.width=(100*c/n)+'%';
+document.getElementById('sh-done').hidden=c<10;}
+bs.forEach(function(b){b.checked=!!d[b.dataset.k];b.addEventListener('change',function(){d[b.dataset.k]=b.checked;try{localStorage.setItem(K,JSON.stringify(d))}catch(x){}up();});});
+document.getElementById('sh-reset').addEventListener('click',function(){d={};try{localStorage.removeItem(K)}catch(x){}bs.forEach(function(b){b.checked=false});up();});up();})();</script>"""
+sh = head("The Boston Selfie Hunt: 20 Iconic Photos to Collect | Boston Travel Agency",
+    "A free, fun day in Boston: collect the city's 20 most iconic photos, from the Make Way for Ducklings statues to Acorn Street, Faneuil Hall, Fenway and the John Harvard statue.", "boston-selfie-hunt/", "ducklings") + nav("selfie") + \
+    hero("acorn", "A free, fun day in Boston", "The Boston Selfie Hunt", "".join(f"<p>{p}</p>" for p in SELFIE_INTRO), small=True) + f"""
+<div class="sh-page"></div><div class="sh-progress" role="status"><div class="wrap"><strong>Your hunt:</strong> <span id="sh-count">0 of {len(TOP)+len(BONUS)}</span> collected<div class="sh-track"><div id="sh-bar"></div></div><button id="sh-reset" class="sh-reset" type="button">Reset</button></div></div>
+<section class="wrap"><h2 class="sec">The top 10, in walking order</h2><p class="muted big">Start in the Public Garden in the morning and finish in Harvard Square by dinner. Comfortable shoes recommended.</p>
+<div class="ev-list">{''.join(selfie_card(i + 1, s) for i, s in enumerate(TOP))}</div>
+<p id="sh-done" class="sh-done" hidden><strong>You collected the top 10!</strong> You've officially seen Boston. Now try the bonus round.</p></section>
+<section class="band"><div class="wrap"><h2 class="sec">The bonus round</h2><ul class="sh-bonus">{bonus}</ul></div></section>
+<section class="wrap"><a class="itin-callout" href="/sample-itineraries/"><strong>Staying a few days?</strong> Pair the hunt with our 2, 3 and 5-day itineraries &rarr;</a>
+<p class="muted small-note">Your checklist is saved only in this browser on this device. Please be respectful when taking photos on residential streets like Acorn Street.</p></section>
+""" + sh_js + foot()
+write("boston-selfie-hunt/index.html", sh)
+
 # ---------- home ----------
 def tile(c):
     url = IMG[c["tile"]][0]; use(c["tile"])
@@ -279,7 +308,8 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <div class="plan-cards">{''.join(plan_card(p) for p in PLANS)}</div>
 </div></section>
 <section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p>
-<a class="itin-callout" href="/what-to-eat-in-boston/"><strong>What to eat in Boston.</strong> Cannoli, lobster rolls, the North Shore roast beef three-way and what\'s hot right now &rarr;</a></section>
+<a class="itin-callout" href="/what-to-eat-in-boston/"><strong>What to eat in Boston.</strong> Cannoli, lobster rolls, the North Shore roast beef three-way and what\'s hot right now &rarr;</a>
+<a class="itin-callout" href="/boston-selfie-hunt/"><strong>No tour, just a fun day?</strong> Try the Boston Selfie Hunt and collect the city\'s 20 most iconic photos &rarr;</a></section>
 <section class="wrap" id="explore"><h2 class="sec">Find your Boston</h2><div class="tiles">{''.join(tile(c) for c in CATS)}</div></section>
 <section class="band"><div class="wrap">
 <h2 class="sec">Our top picks right now</h2>
@@ -342,8 +372,8 @@ write(".nojekyll", "")
 write("logo.svg", lockup_svg())
 write("logo-dark.svg", lockup_svg(dark=True))
 write("logo-mark.svg", mark_svg(512, title=False))
-urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
+urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/", "boston-selfie-hunt/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>https://{DOMAIN}/{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n")
 with open("styles.css") as f: write("styles.css", f.read())
-print("built", OUT, "pages:", len(CATS) + 7, "photos:", len(USED))
+print("built", OUT, "pages:", len(CATS) + 8, "photos:", len(USED))
