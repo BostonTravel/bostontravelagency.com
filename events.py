@@ -44,7 +44,7 @@ EVENTS = [
   "tour": None, "link": "https://www.reverebeachpartnership.com/"},
  {"slug": "fishermans-feast", "name": "Fisherman's Feast", "where": "North End",
   "rule": ("weekend_of", 8, 3, 3), "when": "Mid-August, Thursday to Sunday",
-  "img": 'hanover', "story": ['Strings of lights, Italian music, sizzling sausage and peppers and fresh zeppole fill the narrow streets of the North End for four days in August.', "Started in 1911 by fishermen from Sciacca, Sicily, this is Boston's oldest Italian feast. The highlight is the Flight of the Angel on Sunday, when a young girl dressed as an angel is lowered on ropes above North Street to honor the Madonna. Crowds hold their breath.", 'Make it part of your trip: it is steps from the Paul Revere House and Old North Church, so combine it with a North End food tour or the Freedom Trail.'],
+  "img": 'fishfeast', "story": ['Strings of lights, Italian music, sizzling sausage and peppers and fresh zeppole fill the narrow streets of the North End for four days in August.', "Started in 1910 by fishermen from Sciacca, Sicily, this is Boston's oldest Italian feast. The highlight is the Flight of the Angel on Sunday, when a young girl dressed as an angel is lowered on ropes above North Street to honor the Madonna. Crowds hold their breath.", 'Make it part of your trip: it is steps from the Paul Revere House and Old North Church, so combine it with a North End food tour or the Freedom Trail.'],
   "tour": ("North End Food Tour: Pizza, Pasta and Pastries", "/tours/Boston/North-End-Boston-Food-Tour/d678-91367P3"), "link": "https://www.fishermansfeast.com/"},
  {"slug": "st-anthonys", "name": "Saint Anthony's Feast", "where": "North End",
   "rule": ("last_weekend", 8), "when": "The last full weekend of August",
