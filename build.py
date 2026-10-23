@@ -11,6 +11,7 @@ from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
 from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
 from events import EVENTS_INTRO, upcoming, fmt_range
 from selfies import SELFIE_INTRO, TOP, BONUS
+from museums import CITYPASS_URL, CITYPASS_AS_OF, CITYPASS, MUSEUMS_INTRO, CP_PICKS, IN_PASS, MORE, MUSEUM_TIPS
 from food_guide import EAT_INTRO, CLASSICS, TRENDING, TRENDING_AS_OF
 import datetime as dt
 # Events are listed from this date forward; BUILD_DATE=YYYY-MM-DD overrides for testing.
@@ -68,7 +69,7 @@ def nav(active=""):
     links = "".join(f'<a href="/{c["slug"]}/"{" aria-current=page" if c["slug"]==active else ""}>{e(c["nav"])}</a>' for c in CATS)
     return f"""<header class="top"><div class="wrap bar">
 <a class="brand" href="/"><img class="logo-vintage" src="/logo.svg" width="88" height="61" alt=""><span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1969 &middot; Bespoke Private Travel</span></span></a>
-<nav class="links">{links}<a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/about/"{" aria-current=page" if active=="about" else ""}>About Us</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
+<nav class="links">{links}<a href="/boston-museums/"{" aria-current=page" if active=="boston-museums" else ""}>Museums</a><a href="/boston-events/"{" aria-current=page" if active=="boston-events" else ""}>Events</a><a href="/where-to-stay/"{" aria-current=page" if active=="where-to-stay" else ""}>Where to Stay</a><a href="/about/"{" aria-current=page" if active=="about" else ""}>About Us</a><a href="/sample-itineraries/" class="cta-sm">Sample Itineraries</a></nav>
 </div></header>
 """
 
@@ -78,10 +79,10 @@ def foot():
 <div><div class="brand light"><img class="logo-vintage" src="/logo-dark.svg" width="88" height="61" alt=""><span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1969 &middot; Bespoke Private Travel</span></span></div>
 <p>Family-run since 1969 and Boston at heart. Today we're a private travel consultancy planning personalized trips around the world, and this site is where we share our favorite tours, tips and happenings in the city we love.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
-<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/boston-selfie-hunt/">Boston Selfie Hunt</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
+<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/boston-museums/">Museums &amp; CityPASS&reg;</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/boston-selfie-hunt/">Boston Selfie Hunt</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
 </div>
 <div class="wrap fine">
-<p>Tour bookings are made and fulfilled by Viator, a Tripadvisor company. Boston Travel Agency may earn a commission when you book through links on this site, at no extra cost to you. Prices, ratings and availability shown are approximate and can change; see Viator for current details. Photos from Wikimedia Commons; see <a href="/photo-credits/">photo credits</a>.</p>
+<p>Tour bookings are made and fulfilled by Viator, a Tripadvisor company, and Boston CityPASS&reg; tickets are sold by CityPASS. Boston Travel Agency may earn a commission when you book through links on this site, at no extra cost to you. Prices, ratings and availability shown are approximate and can change; see Viator for current details. Photos from Wikimedia Commons; see <a href="/photo-credits/">photo credits</a>.</p>
 <p>&copy; 2026 Boston Travel Agency. All rights reserved.</p>
 </div>
 </footer>
@@ -164,6 +165,7 @@ for c in CATS:
 <section class="wrap" id="tours"><h2 class="sec">Our top tours</h2>
 <div class="grid">{''.join(card(t) for t in c['tours'])}</div>
 <aside class="tips"><h3>Local tips</h3><ul>{tips}</ul></aside>
+{'<a class="itin-callout" href="/boston-museums/#citypass"><strong>Aquarium, Museum of Science, the zoo?</strong> Do four of them for one price with Boston CityPASS&reg; and save up to 45% &rarr;</a>' if c["slug"]=="family-evening-tours" else ""}
 {'<a class="itin-callout" href="/what-to-eat-in-boston/"><strong>Hungry?</strong> See our guide to what to eat in Boston, from cannoli to the roast beef three-way &rarr;</a>' if c["slug"]=="north-end-food-tours" else ""}
 <a class="itin-callout" href="/sample-itineraries/"><strong>Planning your days?</strong> See how these tours fit into our 2, 3 and 5-day Boston itineraries &rarr;</a>
 <p class="center"><a class="btn ghost" href="{BOSTON_ALL}" target="_blank" rel="sponsored noopener">Browse every Boston experience on Viator</a></p>
@@ -205,7 +207,8 @@ itin = head("Sample Boston Itineraries: 2, 3 and 5 Days | Boston Travel Agency",
     hero("statehouse", "Plan your visit", "Sample Boston itineraries", "".join(f"<p>{p}</p>" for p in ITIN_INTRO), small=True) + f"""
 {anchors}
 <section class="wrap"><nav class="tabs" aria-label="Choose an itinerary">{tabs}</nav></section>
-<section class="wrap"><aside class="before-go"><strong>Before you go: where to stay.</strong> For a 2 or 3-day trip we suggest the Back Bay or the North End and Waterfront, which put most of these plans within walking distance. <a href="/where-to-stay/">See our neighborhood guide &rarr;</a></aside></section>
+<section class="wrap"><aside class="before-go"><strong>Before you go: where to stay.</strong> For a 2 or 3-day trip we suggest the Back Bay or the North End and Waterfront, which put most of these plans within walking distance. <a href="/where-to-stay/">See our neighborhood guide &rarr;</a></aside>
+<aside class="before-go"><strong>Adding museums or the aquarium?</strong> Boston CityPASS&reg; covers 4 of 7 top attractions for one price, including View Boston, the New England Aquarium, a harbor cruise and the MFA. <a href="/boston-museums/#citypass">See how it works &rarr;</a></aside></section>
 <section class="wrap days" id="days"><p class="muted center">Showing the <span id="plan-count">2</span>-day plan. Days build on each other, so a longer trip simply adds days.</p>
 {''.join(day_block(d) for d in DAYS)}</section>
 <section class="band"><div class="wrap"><h2 class="sec">Make it your own</h2><ul class="feature">{seas}</ul>
@@ -307,6 +310,49 @@ eat = head("What to Eat in Boston: Cannoli, Lobster Rolls, Roast Beef and More |
 write("what-to-eat-in-boston/index.html", eat)
 
 
+# ---------- museums (with Boston CityPASS) ----------
+def cp_btn(label="Get Boston CityPASS&reg;", cls="btn big"):
+    return f'<a class="{cls}" href="{CITYPASS_URL}" target="_blank" rel="sponsored noopener">{label}</a>'
+
+def mu_card(m, in_pass):
+    slug, name, where, img, paras, tour = m
+    photo = ""
+    if img:
+        photo = f'<div class="mu-photo" style="background-image:url(\'{use(img)[0]}\')">' + ('<span class="mu-badge">In Boston CityPASS&reg;</span>' if in_pass else '') + '</div>'
+    links = []
+    if in_pass:
+        links.append(cp_btn("Save with CityPASS&reg;", "btn"))
+    if tour:
+        links.append(f'<a class="btn{" ghost" if in_pass else ""}" href="{vlink(tour[1])}" target="_blank" rel="sponsored noopener">{e(tour[0])}</a>')
+    lk = f'<div class="mu-links">{"".join(links)}</div>' if links else ""
+    cr = f'<p class="mu-credit">{credit(img)}</p>' if img else ""
+    return f"""<article class="mu" id="{slug}">{photo}<div class="mu-body"><h3>{e(name)}</h3><p class="mu-where">{e(where)}</p>{''.join(f"<p>{e(p)}</p>" for p in paras)}{lk}{cr}</div></article>"""
+
+cp_list = "".join(f'<li><a href="#{m[0]}">{e(m[1])}</a></li>' for m in IN_PASS)
+cp_picks = "".join(f'<li><strong>{e(a)}:</strong> {e(b)}</li>' for a, b in CP_PICKS)
+mu_tips = "".join(f"<li>{e(t)}</li>" for t in MUSEUM_TIPS)
+mu_jump = "".join(f'<a href="#{m[0]}">{e(m[1].split(" (")[0])}</a>' for m in MORE)
+museums = head("Boston Museums & Attractions, and How to Save with Boston CityPASS | Boston Travel Agency",
+    "The best museums in Boston, from the MFA, Gardner and ICA to the New England Aquarium and Museum of Science, plus how Boston CityPASS saves up to 45% on four top attractions.", "boston-museums/", "mu_hero") + nav("boston-museums") + \
+    hero("mu_hero", "Art, science, history and the sea", "Boston museums &amp; attractions", "".join(f"<p>{p}</p>" for p in MUSEUMS_INTRO),
+         '<div class="hero-ctas"><a class="btn big" href="#citypass">Save with Boston CityPASS&reg;</a><a class="btn ghost light big" href="#more-museums">See all museums</a></div>', small=True) + f"""
+<section class="wrap" id="citypass"><div class="cp-feature">
+<div class="cp-main"><p class="eyebrow">Our top money-saver</p><h2>Boston CityPASS&reg;: 4 top attractions, {CITYPASS['save']} off</h2>
+<p>If you plan to see a few of Boston's big attractions, Boston CityPASS&reg; is the easiest way to save. You pick <strong>any 4 of these 7</strong>, buy once, and use your tickets over {CITYPASS['days']} days:</p>
+<ul class="cp-list">{cp_list}</ul>
+<p class="cp-price"><strong>{CITYPASS['adult']}</strong> adults (12+) &middot; <strong>{CITYPASS['child']}</strong> kids (3 to 11)<span>vs. up to {CITYPASS['adult_reg']} and {CITYPASS['child_reg']} buying the same tickets separately</span></p>
+<div class="cp-cta">{cp_btn()}</div>
+<p class="cp-fine">Prices and savings from CityPASS as of {CITYPASS_AS_OF}; check their site for current prices. Tickets are good for {CITYPASS['days']} days starting with your first visit, and you have a year from purchase to start.</p></div>
+<div class="cp-side"><h3>Which 4 should you pick?</h3><ul>{cp_picks}</ul><p class="cp-side-note">Reserve times for the aquarium and the harbor cruise as soon as you buy.</p></div>
+</div></section>
+<section class="wrap"><h2 class="sec">Included with Boston CityPASS&reg;</h2><div class="mu-grid">{''.join(mu_card(m, True) for m in IN_PASS)}</div></section>
+<section class="band" id="more-museums"><div class="wrap"><h2 class="sec">More great Boston museums</h2><nav class="eat-jump" aria-label="Jump to">{mu_jump}</nav><div class="mu-grid">{''.join(mu_card(m, False) for m in MORE)}</div></div></section>
+<section class="wrap"><aside class="tips"><h3>Local tips</h3><ul>{mu_tips}</ul></aside>
+<div class="cp-strip"><span><strong>Seeing three or four of the big ones?</strong> Boston CityPASS&reg; saves {CITYPASS['save']}.</span>{cp_btn("Get Boston CityPASS&reg;", "btn")}</div>
+<a class="itin-callout" href="/sample-itineraries/"><strong>Planning your days?</strong> See how museums fit into our 2, 3 and 5-day Boston itineraries &rarr;</a></section>
+""" + foot()
+write("boston-museums/index.html", museums)
+
 # ---------- selfie hunt ----------
 def selfie_card(i, s):
     url = use(s["img"])[0]
@@ -374,7 +420,8 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 </div></section>
 <section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p>
 <a class="itin-callout" href="/what-to-eat-in-boston/"><strong>What to eat in Boston.</strong> Cannoli, lobster rolls, the North Shore roast beef three-way and what\'s hot right now &rarr;</a>
-<a class="itin-callout" href="/boston-selfie-hunt/"><strong>No tour, just a fun day?</strong> Try the Boston Selfie Hunt and collect the city\'s 20 most iconic photos &rarr;</a></section>
+<a class="itin-callout" href="/boston-selfie-hunt/"><strong>No tour, just a fun day?</strong> Try the Boston Selfie Hunt and collect the city\'s 20 most iconic photos &rarr;</a>
+<a class="itin-callout" href="/boston-museums/#citypass"><strong>Museums and the aquarium.</strong> Save up to 45% on the MFA, Museum of Science, New England Aquarium and more with Boston CityPASS&reg; &rarr;</a></section>
 <section class="wrap" id="explore"><h2 class="sec">Find your Boston</h2><div class="tiles">{''.join(tile(c) for c in CATS)}</div></section>
 <section class="band"><div class="wrap">
 <h2 class="sec">Our top picks right now</h2>
@@ -457,7 +504,7 @@ for fn in sorted(os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file_
     shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos", fn), os.path.join(OUT, "img", fn))
 write("logo-dark.svg", vintage_svg("#f6f1e8"))
 write("logo-mark.svg", vintage_svg("#14284b"))
-urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/", "boston-selfie-hunt/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
+urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/", "boston-selfie-hunt/", "boston-museums/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>https://{DOMAIN}/{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n")
 with open("styles.css") as f: write("styles.css", f.read())
