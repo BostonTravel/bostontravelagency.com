@@ -98,9 +98,10 @@ def figure(k):
     url, src, author, lic, licurl, cap = use(k)
     return f'<figure class="photo"><img src="{url}" alt="{e(cap)}" loading="lazy"><figcaption>{e(cap)}. <span class="cr">{credit(k)}</span></figcaption></figure>'
 
-def hero(k, eyebrow, h1, lede_html, ctas="", small=False):
+def hero(k, eyebrow, h1, lede_html, ctas="", small=False, pos=None):
     url = use(k)[0]
-    return f"""<section class="hero photo-hero{' small' if small else ''}" style="background-image:linear-gradient(180deg,rgba(12,24,48,.30),rgba(12,24,48,.72)),url('{url}')">
+    bp = f";background-position:{pos}" if pos else ""
+    return f"""<section class="hero photo-hero{' small' if small else ''}" style="background-image:linear-gradient(180deg,rgba(12,24,48,.30),rgba(12,24,48,.72)),url('{url}'){bp}">
 <div class="wrap"><p class="eyebrow">{eyebrow}</p><h1>{h1}</h1><div class="lede">{lede_html}</div>{ctas}</div>
 <p class="hero-credit">{credit(k)}</p>
 </section>"""
@@ -350,8 +351,8 @@ def tile(c):
     return f"""<a class="tile" href="/{c['slug']}/" style="background-image:linear-gradient(180deg,rgba(10,20,40,.05) 30%,rgba(10,20,40,.85)),url('{url}')"><span class="k">{e(c['kicker'])}</span><span class="h">{e(c['title'])}</span><span class="go">Explore &rarr;</span></a>"""
 picks = [FREEDOM["tours"][0], WATER["tours"][0], FOOD["tours"][0], SPORTS["tours"][0], DAYTRIPS["tours"][0], FAMILY["tours"][1]]
 home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
-            "Hand-picked Boston tours from a family-run Boston travel agency, est. 1969: the Freedom Trail, whale watching, food tours, Fenway Park, day trips and more.", "", "hero") + nav() + \
-    hero("hero", "Family-run since 1969 &middot; Bespoke private travel", "The best of Boston,<br>picked by people who live here.",
+            "Hand-picked Boston tours from a family-run Boston travel agency, est. 1969: the Freedom Trail, whale watching, food tours, Fenway Park, day trips and more.", "", "hero_harbor") + nav() + \
+    hero("hero_harbor", "Family-run since 1969 &middot; Bespoke private travel", "The best of Boston,<br>picked by people who live here.",
          "<p>We've sorted through hundreds of Boston tours so you don't have to. Every experience here is highly rated, easy to book, and something we'd send our own family on.</p>",
          '<div class="hero-ctas"><a class="btn big" href="#explore">Explore Boston</a><a class="btn ghost light big" href="/sample-itineraries/">See sample itineraries</a></div>') + f"""
 <section class="wrap intro-block">
@@ -401,8 +402,8 @@ contact = head("Contact Us | Boston Travel Agency", "How to get help with a tour
 write("contact/index.html", contact)
 
 # ---------- about ----------
-about = head("About Us | Boston Travel Agency", "Founded in 1969 in Boston's North End by a family from Italy, Boston Travel Agency shares free guides to the city it calls home.", "about/", "hanover") + nav("about") + \
-    hero("hanover", "About us", "Boston at heart.<br>Italy in our blood.", "<p>A family-run travel agency since 1969.</p>", small=True) + f"""
+about = head("About Us | Boston Travel Agency", "Founded in 1969 in Boston's North End by a family from Italy, Boston Travel Agency shares free guides to the city it calls home.", "about/", "revere_mall") + nav("about") + \
+    hero("revere_mall", "About us", "Boston at heart.<br>Italy in our blood.", "<p>A family-run travel agency since 1969.</p>", small=True, pos="center 30%") + f"""
 <section class="wrap narrow prose">
 <h2 class="sec">From the North End to Italy and back</h2>
 <p>Boston Travel Agency was founded in 1969 in Boston's North End by a family who had made the journey from Italy themselves. In those years the neighborhood was home to thousands of Italian immigrants, and the agency became the place they turned to for travel between their two worlds: trips back to Italy for family celebrations, long-awaited visits to the towns they had left, and relatives making their way to Boston for the first time.</p>
