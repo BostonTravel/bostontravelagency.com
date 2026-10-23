@@ -143,7 +143,7 @@ for c in CATS:
     page = head(f"{c['title']} | Boston Travel Agency", c["intro"][0][:155], c["slug"] + "/", c["hero"]) + nav(c["slug"]) + \
         hero(c["hero"], e(c["kicker"]), e(c["title"]), intro, '<div class="hero-ctas"><a class="btn big" href="#tours">See our top tours</a></div>', small=True) + f"""
 <div class="wrap">{secs}</div>
-<section class="band"><div class="wrap"><h2 class="sec">{e(f['h'])}</h2><ul class="feature">{feat}</ul></div></section>
+<section class="band"><div class="wrap"><h2 class="sec">{e(f['h'])}</h2><ul class="feature">{feat}</ul>{('<p class="feat-note">' + e(f["note"]) + '</p>') if f.get("note") else ""}</div></section>
 <section class="wrap" id="tours"><h2 class="sec">Our top tours</h2>
 <div class="grid">{''.join(card(t) for t in c['tours'])}</div>
 <aside class="tips"><h3>Local tips</h3><ul>{tips}</ul></aside>
