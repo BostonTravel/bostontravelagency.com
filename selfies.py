@@ -24,7 +24,7 @@ TOP = [
  {"slug": "uss-constitution", "name": "USS Constitution", "where": "Charlestown Navy Yard", "img": "constitution",
   "tip": "\"Old Ironsides,\" launched in 1797, is the oldest commissioned warship still afloat, and it's free to visit. Walk across the bridge from the North End along the Freedom Trail, or take the water taxi.",
   "tour": ("Historic Sightseeing Harbor Cruise", "/tours/Boston/Boston-Historic-Sightseeing-Cruise/d678-3283SSCRUISE")},
- {"slug": "trinity-reflection", "name": "Trinity Church in the Glass", "where": "Copley Square, Back Bay", "img": "backbay",
+ {"slug": "trinity-reflection", "name": "Trinity Church in the Glass", "where": "Copley Square, Back Bay", "img": "trinity",
   "tip": "Stand in Copley Square and line up 1877 Trinity Church with its reflection in the mirrored glass of the 200 Clarendon tower (the old John Hancock Tower). It's Boston's most famous architecture photo: old and new in one frame.",
   "tour": None},
  {"slug": "marathon-finish", "name": "The Marathon Finish Line", "where": "Boylston Street, in front of the Boston Public Library", "img": "marathon",
