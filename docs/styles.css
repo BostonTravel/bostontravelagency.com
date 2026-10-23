@@ -152,3 +152,10 @@ h1,h2,h3,.brand,.sec{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
 .ev-mini{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;min-height:240px;padding:20px;border-radius:var(--r);color:#fff;text-decoration:none;background-size:cover;background-position:center;box-shadow:0 6px 20px rgba(20,40,75,.12);transition:transform .2s}
 .ev-mini:hover{transform:translateY(-4px)}.ev-mini .h{font-family:Fraunces,Georgia,serif;font-size:22px;font-weight:700;line-height:1.15}.ev-mini .w{font-size:14px;opacity:.9}
 @media(max-width:860px){.ev{grid-template-columns:1fr}.ev:nth-child(even) .ev-photo{order:0}.ev-photo{min-height:220px}.ev-body{padding:20px}.ev h3{font-size:24px}}
+/* what to eat */
+.eat-jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.eat-jump a{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:14px;color:var(--navy);text-decoration:none}
+.eat-jump a:hover{border-color:var(--brick);color:var(--brick)}
+.eat-spots{list-style:none;padding:12px 14px;margin:4px 0 14px;background:var(--cream);border-radius:10px;font-size:15px;display:flex;flex-direction:column;gap:6px}
+.trend .where{font-size:13px!important;color:var(--brick)!important;font-weight:600}
+.ev-body .eyebrow{margin:0 0 6px}

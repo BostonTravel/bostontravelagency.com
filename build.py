@@ -9,6 +9,7 @@ from brand import mark_svg, lockup_svg, favicon_uri
 from itins import ITIN_INTRO, PLANS, DAYS, SEASONAL
 from stay import STAY_INTRO, TIERS, PICKER, HOODS, STAY_TIPS
 from events import EVENTS_INTRO, upcoming, fmt_range
+from food_guide import EAT_INTRO, CLASSICS, TRENDING, TRENDING_AS_OF
 import datetime as dt
 # Events are listed from this date forward; BUILD_DATE=YYYY-MM-DD overrides for testing.
 TODAY = dt.date.fromisoformat(os.environ["BUILD_DATE"]) if os.environ.get("BUILD_DATE") else dt.date.today()
@@ -69,7 +70,7 @@ def foot():
 <div><div class="brand light">{mark_svg(42, bg="#b2452f", wave="#f6f1e8")}<span class="wm"><span class="wm-name">Boston Travel Agency</span><span class="wm-tag">Est. 1965 &middot; North End</span></span></div>
 <p>Family-run since 1965, founded in the heart of Boston's North End. We help visitors and locals find the best of the city, and we plan custom trips anywhere in the world.</p></div>
 <div><h4>Explore</h4>{''.join(f'<a href="/{c["slug"]}/">{e(c["title"])}</a>' for c in CATS)}</div>
-<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
+<div><h4>More</h4><a href="/sample-itineraries/">Sample itineraries</a><a href="/boston-events/">Events calendar</a><a href="/what-to-eat-in-boston/">What to eat in Boston</a><a href="/where-to-stay/">Where to stay</a><a href="/about/">About us</a><a href="/contact/">Contact us</a><a href="/photo-credits/">Photo credits</a></div>
 </div>
 <div class="wrap fine">
 <p>Tour bookings are made and fulfilled by Viator, a Tripadvisor company. Boston Travel Agency may earn a commission when you book through links on this site, at no extra cost to you. Prices, ratings and availability shown are approximate and can change; see Viator for current details. Photos from Wikimedia Commons; see <a href="/photo-credits/">photo credits</a>.</p>
@@ -131,6 +132,7 @@ for c in CATS:
 <section class="wrap" id="tours"><h2 class="sec">Our top tours</h2>
 <div class="grid">{''.join(card(t) for t in c['tours'])}</div>
 <aside class="tips"><h3>Local tips</h3><ul>{tips}</ul></aside>
+{'<a class="itin-callout" href="/what-to-eat-in-boston/"><strong>Hungry?</strong> See our guide to what to eat in Boston, from cannoli to the roast beef three-way &rarr;</a>' if c["slug"]=="north-end-food-tours" else ""}
 <a class="itin-callout" href="/sample-itineraries/"><strong>Planning your days?</strong> See how these tours fit into our 2, 3 and 5-day Boston itineraries &rarr;</a>
 <p class="center"><a class="btn ghost" href="{BOSTON_ALL}" target="_blank" rel="sponsored noopener">Browse every Boston experience on Viator</a></p>
 </section>
@@ -233,6 +235,28 @@ ev_page = head("Boston Events Calendar: Marathon, Feasts, Head of the Charles an
 """ + hide_past + foot()
 write("boston-events/index.html", ev_page)
 
+
+# ---------- what to eat ----------
+def eat_card(c):
+    url = use(c["img"])[0]
+    spots = "".join(f'<li><strong>{e(n)}</strong> <span class="muted">{e(w)}{(" &middot; " + e(x)) if x else ""}</span></li>' for n, w, x in c["spots"])
+    spots = f'<ul class="eat-spots">{spots}</ul>' if spots else ""
+    tour = f'<div class="ev-links"><a class="btn" href="{vlink(c["tour"][1])}" target="_blank" rel="sponsored noopener">{e(c["tour"][0])}</a></div>' if c["tour"] else ""
+    return f"""<article class="ev" id="{c['slug']}"><div class="ev-photo" style="background-image:url('{url}')"></div>
+<div class="ev-body"><p class="eyebrow dark">{e(c['kicker'])}</p><h3>{e(c['name'])}</h3>{''.join(f"<p>{p}</p>" for p in c['paras'])}{spots}{tour}<p class="ev-credit">{credit(c['img'])}</p></div></article>"""
+jump = "".join(f'<a href="#{c["slug"]}">{e(c["name"].split(",")[0])}</a>' for c in CLASSICS)
+trend = "".join(f'<li><strong>{e(t["name"])}</strong><span class="where">{e(t["where"])}</span><span>{e(t["what"])}</span></li>' for t in TRENDING)
+eat = head("What to Eat in Boston: Cannoli, Lobster Rolls, Roast Beef and More | Boston Travel Agency",
+    "The foods you have to try in Boston, from North End cannoli and lobster rolls to the North Shore roast beef three-way, plus what's hot in the Seaport right now.", "what-to-eat-in-boston/", "mikes") + nav("what-to-eat") + \
+    hero("lobster", "Eat like a local", "What to eat in Boston", "".join(f"<p>{p}</p>" for p in EAT_INTRO), small=True) + f"""
+<section class="wrap"><nav class="eat-jump" aria-label="Jump to">{jump}<a href="#hot-right-now">Hot right now</a></nav>
+<h2 class="sec">The Boston classics</h2><div class="ev-list">{''.join(eat_card(c) for c in CLASSICS)}</div></section>
+<section class="band" id="hot-right-now"><div class="wrap"><h2 class="sec">Hot right now</h2><p class="muted big">The places Boston is buzzing about as of {TRENDING_AS_OF}. Restaurants change quickly, so check hours and book ahead.</p><ul class="feature trend">{trend}</ul></div></section>
+<section class="wrap"><a class="itin-callout" href="/north-end-food-tours/"><strong>Want a guide?</strong> A North End food tour is the easiest way to try cannoli, pizza and more in one afternoon &rarr;</a>
+<p class="muted small-note">Restaurants, hours and menus change. These are places we like; check before you go.</p></section>
+""" + foot()
+write("what-to-eat-in-boston/index.html", eat)
+
 # ---------- home ----------
 def tile(c):
     url = IMG[c["tile"]][0]; use(c["tile"])
@@ -253,7 +277,8 @@ home = head("Boston Travel Agency | The Best Tours & Things to Do in Boston",
 <p class="muted big">Day-by-day plans with the best tours, where to eat and how to pace it, built by locals.</p>
 <div class="plan-cards">{''.join(plan_card(p) for p in PLANS)}</div>
 </div></section>
-<section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p></section>
+<section class="wrap"><h2 class="sec">Coming up in Boston</h2><div class="ev-strip">{''.join(ev_card(r, True) for r in UPCOMING[:4])}</div><p class="center"><a class="btn ghost" href="/boston-events/">See the full events calendar</a></p>
+<a class="itin-callout" href="/what-to-eat-in-boston/"><strong>What to eat in Boston.</strong> Cannoli, lobster rolls, the North Shore roast beef three-way and what\'s hot right now &rarr;</a></section>
 <section class="wrap" id="explore"><h2 class="sec">Find your Boston</h2><div class="tiles">{''.join(tile(c) for c in CATS)}</div></section>
 <section class="band"><div class="wrap">
 <h2 class="sec">Our top picks right now</h2>
@@ -316,8 +341,8 @@ write(".nojekyll", "")
 write("logo.svg", lockup_svg())
 write("logo-dark.svg", lockup_svg(dark=True))
 write("logo-mark.svg", mark_svg(512, title=False))
-urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
+urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"<url><loc>https://{DOMAIN}/{u}</loc></url>\n" for u in urls) + "</urlset>\n")
 write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n")
 with open("styles.css") as f: write("styles.css", f.read())
-print("built", OUT, "pages:", len(CATS) + 6, "photos:", len(USED))
+print("built", OUT, "pages:", len(CATS) + 7, "photos:", len(USED))
