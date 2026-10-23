@@ -406,6 +406,10 @@ about = head("About Us | Boston Travel Agency", "Founded in 1965 in Boston's Nor
 <section class="wrap narrow prose">
 <h2 class="sec">From the North End to Italy and back</h2>
 <p>Boston Travel Agency was founded in 1965 in Boston's North End by a family who had made the journey from Italy themselves. In those years the neighborhood was home to thousands of Italian immigrants, and the agency became the place they turned to for travel between their two worlds: trips back to Italy for family celebrations, long-awaited visits to the towns they had left, and relatives making their way to Boston for the first time.</p>
+<div class="heritage">
+<figure><img src="../img/bta-first-office-1960s.jpg" width="980" height="670" loading="lazy" alt="Black and white photo of the original Boston Travel Agency storefront in the North End, with a man in a suit standing in the doorway under the sign"><figcaption><span class="h-yr">1960s</span>Where it all began: our first office in the North End, with &ldquo;Agenzia di Viaggi&rdquo; lettered on the window.</figcaption></figure>
+<figure><img src="../img/bta-second-office-1970s.jpg" width="1061" height="692" loading="lazy" alt="Color photo of the second Boston Travel Agency office, a brick storefront with gold lettering on a North End street"><figcaption><span class="h-yr">Late 1970s</span>Our second home, opened right next door.</figcaption></figure>
+</div>
 <p>Six decades later, we're still family-run, and we still plan travel the same personal way: bespoke, private trips around the world, with Italy closest to our hearts. That work is reserved for our longtime clients and the families they refer, so it isn't something we offer through this website.</p>
 <h2 class="sec">Why we made this site</h2>
 <p>Because Boston is where our story began, and we never stopped loving it. This is the city where our family planted its roots, and we've spent a lifetime collecting its best walks, bites, traditions and hidden corners.</p>
@@ -433,6 +437,11 @@ if os.environ.get("CUSTOM_DOMAIN") == "1":
     write("CNAME", DOMAIN + "\n")
 write(".nojekyll", "")
 write("logo.svg", lockup_svg())
+# our own historic photos (photos/ -> docs/img/)
+import shutil
+os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
+for fn in sorted(os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos"))):
+    shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos", fn), os.path.join(OUT, "img", fn))
 write("logo-dark.svg", lockup_svg(dark=True))
 write("logo-mark.svg", mark_svg(512, title=False))
 urls = [""] + ["sample-itineraries/", "where-to-stay/", "boston-events/", "what-to-eat-in-boston/", "boston-selfie-hunt/"] + [c["slug"] + "/" for c in CATS] + ["about/", "contact/", "photo-credits/"]
